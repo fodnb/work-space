@@ -13,7 +13,7 @@
 
 .userInput {
 	font-family: 'Fugaz One', cursive;
-	font-size: 20px
+	font-size: 15px
 }
 .orderHeader {
 	font-family: 'Righteous', cursive;
@@ -68,7 +68,6 @@
 	border-radius:10px;
 	height: 40px;
 	width: 300px;
-
 }
 
 
@@ -121,13 +120,33 @@ a {
 	position:relative;
 	top:1px;
 }
+#orderParameters {
+	margin-top: 20px;
+	margin-left: 40px;
+}
+h3 {
+	font-family: 'Righteous', cursive;
+}
+.additionalInput {
+	border:2px solid #456879;
+	border-radius:10px;
+	height: 50px;
+	width: 500px;
+	margin-top: 30px;
+}
+#additionalFields {
+	margin-top: 30px;
+}
 
-
-
-
-
-
-
+#newField {
+	font-family: 'Righteous', cursive;
+}
+#newFieldBreak {
+	line-height: 
+}
+.panel-body {
+	width: 800px;
+}
 
 
 
