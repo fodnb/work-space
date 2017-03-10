@@ -1,0 +1,151 @@
+
+
+/*---------------------------------------------------------------------------------------------------------*/
+						/*------------------------Login------------------------*/
+/*---------------------------------------------------------------------------------------------------------*/
+#logo {
+	font-family: 'Shrikhand', cursive;
+	color: white;
+	font-size: 35px;
+	text-align: center;
+	height: 50px;
+}
+
+.userInput {
+	font-family: 'Fugaz One', cursive;
+	font-size: 20px
+}
+.orderHeader {
+	font-family: 'Righteous', cursive;
+}
+.panel-title {
+	font-family: 'Righteous', cursive;	
+}
+/*#imageBG {
+	background-image:url(images/bg1.jpg);
+	background-image:url(images/bg2.jpg);
+	background-image:url(images/bg3.jpg);
+	background-image:url(images/bg4.jpg);
+	background-image:url(images/bg5.jpg);
+
+    background-repeat:no-repeat;
+    background-size:cover;
+}*/
+#navbar navbar-inverse {
+	height: 50px;
+}
+#loginButton {
+	background-color:#ededed;
+	-moz-border-radius:28px;
+	-webkit-border-radius:28px;
+	border-radius:28px;
+	border:1px solid #949494;
+	display:inline-block;
+	cursor:pointer;
+	color:#828282;
+	font-family: 'Fugaz One', cursive;
+	font-size:17px;
+	padding:16px 31px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #000000;
+}
+#loginButton:hover {
+	background-color:#ffffff;
+}
+#loginButton:active {
+	position:relative;
+	top:1px;
+}
+
+.loginText {
+	font-family: 'Fugaz One', cursive;
+}
+#login {
+	font-family: 'Fugaz One', cursive;
+}
+.userInput {
+	border:2px solid #456879;
+	border-radius:10px;
+	height: 40px;
+	width: 300px;
+
+}
+
+
+
+/*---------------------------------------------------------------------------------------------------------*/
+						/*------------------------Index------------------------*/
+/*---------------------------------------------------------------------------------------------------------*/
+
+#container {
+	background-color:#f8f8f8;
+	height:550px;
+	margin-top: 10px;
+	margin-left: 75px;
+	margin-right: 75px;
+	border-radius: 10px;
+	border:2px solid #cccccc;
+}
+.nav.nav-tabs {
+	width: 700px;
+	margin-left: 80px;
+}
+a {
+	font-family: 'Righteous', cursive;
+}
+.col-sm-8 {
+	margin-top: 20px;
+}
+/*#topPanel {
+	margin-top: 20px;
+}*/
+#addButton {
+	background-color:#ededed;
+	-moz-border-radius:28px;
+	-webkit-border-radius:28px;
+	border-radius:28px;
+	border:1px solid #949494;
+	display:inline-block;
+	cursor:pointer;
+	color:#828282;
+	font-family: 'Fugaz One', cursive;
+	font-size:15px;
+	padding:12px 31px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #000000;
+}
+#addButton:hover {
+	background-color:#ffffff;
+}
+#addButton:active {
+	position:relative;
+	top:1px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
