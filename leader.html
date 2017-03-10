@@ -6,8 +6,7 @@
 
 	<title>Leader Page</title>
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link href="https://fonts.googleapis.com/css?family=Fugaz+One|Shrikhand" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -46,12 +45,18 @@
 					<!-- <div class="col-sm-6"> -->
 
 						<!-- <div id="new-w/o-form" class='tab-pane fade'> -->
-							<h3>Issuer:</h3>
-							<input class="userInput" id="issuer"/>
-							<h3>Date:</h3>
-							<input class="userInput" id="date"/>
-							<h3>Reference Number:</h3>
-							<input class="userInput" id="ref"/> 
+							<!--this begins the header fields for a work order  -->
+							<div id='custom-fields'>
+								<h3>Issuer:</h3>
+								<input class="userInput" id="issuer"/>
+								<h3>Date:</h3>
+								<input class="userInput" id="date"/>
+								<h3>Reference Number:</h3>
+								<input class="userInput" id="ref"/> 
+							</div>
+							<!-- add new field to the custom-fields -->
+							<input placeholder="New Field Name" class="userInput" id="new-field"> <button class="addField" id="addButton">Add Field</button>
+							<!-- this ends the header fields for the work order -->
 							<h3>Task Description:</h3>
 							<input class="userInput" id="w-o-task" style="width:500p;;height: 100px"> 
 							<br></br>
@@ -60,10 +65,7 @@
 					<!-- </div> -->
 				<!-- <div class="col-sm-6"> -->
 
-					<div class="build-field"> 
-						<input placeholder="New Field Name" class="userInput" id="new-field"> <button class="addField" id="addButton">Add Field</button>
-					<!-- </div>  -->
-				</div>
+				<!-- </div>  -->
 			</div> <!-- end of new-w/o -->
 			<div id='team-list' class='tab-pane fade'>
 			<!-- team view here -->
