@@ -14,7 +14,6 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link href="https://fonts.googleapis.com/css?family=Fugaz+One|Shrikhand" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
-	
 </head>
 <body>
 <!-- team member page goes here -->
@@ -31,8 +30,8 @@
 	<div class="container-fluid">
 
 		<ul class="nav nav-tabs">
-		  	<li class="active"><a data-toggle='tab' href="#w-o-issued">W/O list</a></li>
-		 	<li><a data-toggle='tab' href="#resource">Team list</a></li>
+		  	<li class="active"><a data-toggle='tab' href="#w-o-issued">Work orders</a></li>
+		 	<li><a data-toggle='tab' href="#resource">resources</a></li>
 		</ul>
 
 		<div class='tab-content'>
@@ -42,8 +41,17 @@
 				
 			</div>
 			<div id='resource' class='tab-pane fade'>
-			
+
 				<!-- api search form and display go here -->
+				<h3>You Tube</h3>
+				<input placeholder="search you tube" class="userInput" id="youTube">
+				<br/>
+				 <button class="btn btn-default" id="srchYouTube">Search</button>
+						
+				<h3>Stack Exchange</h3>
+				<input placeholder='search stack exchange' class="userInput" id="stack"> 
+				<br></br>
+				<button class="btn btn-default" id="srchStack">Search</button>
 			</div>
 		</div>
 	</div>
