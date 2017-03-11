@@ -12,10 +12,10 @@ var config = {
 
 var database = firebase.database();
 
-// initializing button for searching for youtube
+// initializing button for searching for srchYouTube
 $("#srchYouTube").on(click, function (event){
     event.preventDefault();
-    var title;
+    var title = "car";
     var url = "https://www.googleapis.com/youtube/v3/search?q=";
     var key = "key=AIzaSyAKu1os4pi3oY7ThPvVeNefdWdXHRldy9Y&part=snippet";
     var queryUrl = url + title + "&" + key;
