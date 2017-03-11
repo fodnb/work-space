@@ -1,10 +1,15 @@
-<<<<<<< HEAD
 
-=======
-/*---------------------------------------------------------------------------------------------------------*/
->>>>>>> 73808c1dff7a5c495c79da5314c4bac4751ff85d
 						/*------------------------Login------------------------*/
 /*---------------------------------------------------------------------------------------------------------*/
+
+#alert {
+	color:red;
+	display:none;
+}
+
+input {
+	outline:none;
+}
 #logo {
 	font-family: 'Shrikhand', cursive;
 	color: white;
@@ -17,12 +22,15 @@
 	font-family: 'Fugaz One', cursive;
 	font-size: 15px
 }
+
 .orderHeader {
 	font-family: 'Righteous', cursive;
 }
+
 .panel-title {
 	font-family: 'Righteous', cursive;	
 }
+
 /*#imageBG {
 	background-image:url(images/bg1.jpg);
 	background-image:url(images/bg2.jpg);
@@ -33,9 +41,11 @@
     background-repeat:no-repeat;
     background-size:cover;
 }*/
+
 #navbar navbar-inverse {
 	height: 50px;
 }
+
 #loginButton {
 	background-color:#ededed;
 	-moz-border-radius:28px;
@@ -47,13 +57,16 @@
 	color:#828282;
 	font-family: 'Fugaz One', cursive;
 	font-size:17px;
-	padding:16px 31px;
+	padding:10px 25px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #000000;
+	margin-top:10px;
 }
+
 #loginButton:hover {
 	background-color:#ffffff;
 }
+
 #loginButton:active {
 	position:relative;
 	top:1px;
@@ -62,14 +75,17 @@
 .loginText {
 	font-family: 'Fugaz One', cursive;
 }
+
 #login {
 	font-family: 'Fugaz One', cursive;
 }
+
 .userInput {
 	border:2px solid #456879;
 	border-radius:10px;
 	height: 40px;
-	width: 300px;
+	width: 290px;
+	padding:0 5px 0 5px;
 }
 
 
@@ -87,23 +103,24 @@
 	border-radius: 10px;
 	border:2px solid #cccccc;
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> 73808c1dff7a5c495c79da5314c4bac4751ff85d
 .nav.nav-tabs {
 	width: 700px;
 	margin-left: 80px;
 }
+
 a {
 	font-family: 'Righteous', cursive;
 }
+
 .col-sm-8 {
 	margin-top: 20px;
 }
+
 /*#topPanel {
 	margin-top: 20px;
 }*/
+
 #addButton {
 	background-color:#ededed;
 	-moz-border-radius:28px;
@@ -119,29 +136,29 @@ a {
 	text-decoration:none;
 	text-shadow:0px 1px 0px #000000;
 }
+
 #addButton:hover {
 	background-color:#ffffff;
 }
+
 #addButton:active {
 	position:relative;
 	top:1px;
 }
+
 #orderParameters {
 	margin-top: 20px;
 	margin-left: 40px;
 }
+
 h3 {
 	font-family: 'Righteous', cursive;
 }
+
 .additionalInput {
 	border:2px solid #456879;
 	border-radius:10px;
 	height: 100px;
 	width: 500px;
 	margin-top: 30px;
-<<<<<<< HEAD
-}
 
-=======
-}
->>>>>>> 73808c1dff7a5c495c79da5314c4bac4751ff85d
