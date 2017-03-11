@@ -1,9 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang='en-US'>
 <head>
+	<meta name='veiwport' content='width=device-width scale=1'>
+	<meta charset="utf-8">
+
 	<title>Leader Page</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+	
+	<!-- bootstrap cdn -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link href="https://fonts.googleapis.com/css?family=Fugaz+One|Shrikhand" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -25,142 +32,97 @@
 	<div class="container-fluid">
 
 		<ul class="nav nav-tabs">
-		  <li class="active"><a href="#">Active</a></li>
-		  <li><a href="#">Completed</a></li>
-		  <li><a href="#">Tech</a></li>
+		  	<li class="active"><a data-toggle='tab' href="#w-o-list">W/O list</a></li>
+		  	<li><a data-toggle='tab' href="#new-w-o">New W/O</a></li>
+		 	<li><a data-toggle='tab' href="#team-list">Team list</a></li>
 		</ul>
 
-	<div id="container">
+		<div class='tab-content'>
+		<!-- html options go here -->
+			<div id='w-o-list' class='tab-pane fade active'>
+			<!-- master list displayed here -->
+				master list goes here later
+			</div>
+			<div id='new-w-o' class='tab-pane fade'>
+			<!-- work order form here -->
 
-	<div class="row text-center">
+					<!-- <div class="col-sm-6"> -->
+
+						<!-- <div id="new-w/o-form" class='tab-pane fade'> -->
+							<!--this begins the header fields for a work order  -->
+							<div id='custom-fields'>
+								<h3>Issuer:</h3>
+								<input class="userInput" id="issuer"/>
+								<h3>Date:</h3>
+								<input class="userInput" id="date"/>
+								<h3>Reference Number:</h3>
+								<input class="userInput" id="ref"/> 
+							</div>
+							<!-- add new field to the custom-fields -->
+							<input placeholder="New Field Name" class="userInput" id="new-field"> <button class="addField" id="addButton">Add Field</button>
+							<!-- this ends the header fields for the work order -->
+							<h3>Task Description:</h3>
+							<input class="userInput" id="w-o-task" style="width:500p;;height: 100px"> 
+							<br></br>
+							<button class="btn btn-default" id="add-w-o">Create W/O</button>
+						<!-- </div> -->
+					<!-- </div> -->
+				<!-- <div class="col-sm-6"> -->
+
+				<!-- </div>  -->
+			</div> <!-- end of new-w/o -->
+			<div id='team-list' class='tab-pane fade'>
+			<!-- team view here -->
+				team displays here first
+			</div>
+
+		</div>
+	</div>
+
+	<!-- the following is a example idea -->
+	<!-- <div class="row text-center">
 	    <div class="col-sm-2"></div>
 	    <div class="col-sm-8">
 			<div class="panel-group" id="accordion">
-			  <div class="panel panel-default">
-			    <div id="topPanel" class="panel-heading">
-			      <h4 class="panel-title">
-			        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><strong>Work Order #1</strong></a>
-			      </h4>
-			    </div>
-			    <div id="collapse1" class="panel-collapse collapse">
-			      <div class="panel-body">
+			  	<div class="panel panel-default"> 
+			    	<div id="topPanel" class="panel-heading">
+			      		<h4 class="panel-title">
+			        	<a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><strong>Work Order #1</strong></a>
+			      		</h4>
+			    	</div>
+			    	<div id="collapse1" class="panel-collapse collapse">
+			     		 <div class="panel-body">
 			      	
-			   		<div class="container">
-					  <h3 class="orderHeader" style="float: left">"Automobile Needs Repair"</h3>
-					  <br></br>
-					  <br></br>
-					  <table class="table table-hover" style="width:800px; float: left">
-					    <thead>
-					      <tr>
-					        <th>Task</th>
-					      </tr>
-					    </thead>
-					    <tbody>
-					      <tr>
-					        <td id="descriptionDisplay"><strong>Description:</strong> After changing their name from the New Yardbirds, Led Zeppelin signed a deal with Atlantic Records that afforded them considerable artistic freedom. Although the group was initially unpopular with critics, they achieved significant commercial success with albums such as Led Zeppelin</td>
-					      </tr>
-					      <tr>
-					        <td><strong>Customer Information:</strong> Jane Doe, Age 43; Location: Basking Ridge NJ, 07920 87 Vanderveer Drive</td>
-					      </tr>
-					    </tbody>
-					  </table>
-					</div>
-			      </div>
-			    </div>
-			  </div>
-			</div>
+			   				<div class="container">
+					  			<h3 class="orderHeader" style="float: left">"Automobile Needs Repair"</h3>
+					  			<br></br>
+					  			<br></br>
+					  			<table class="table table-hover" style="width:800px; float: left">
+					    			<thead>
+					      				<tr>
+					        				<th>Task</th>
+					      				</tr>
+					    			</thead>
+					    			<tbody>
+					      				<tr>
+					        				<td id="descriptionDisplay"><strong>Description:</strong> After changing their name from the New Yardbirds, Led Zeppelin signed a deal with Atlantic Records that afforded them considerable artistic freedom. Although the group was initially unpopular with critics, they achieved significant commercial success with albums such as Led Zeppelin</td>
+					      				</tr>
+					      				<tr>
+					        				<td><strong>Customer Information:</strong> Jane Doe, Age 43; Location: Basking Ridge NJ, 07920 87 Vanderveer Drive</td>
+					      				</tr>
+					    			</tbody>
+					  			</table>
+							</div>
+			      		</div>
+			    	</div>
+			  	</div>
+			</div> 
 		</div>
-	    <div class="col-sm-2"></div>
+		<div class='col-sm-2'></div>
 	</div>
-
-	<div class="row text-center">
-	    <div class="col-sm-2"></div>
-	    <div class="col-sm-8">
-			<div class="panel-group" id="accordion">
-			  <div class="panel panel-default">
-			    <div class="panel-heading">
-			      <h4 class="panel-title">
-			        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"><strong>Work Order #2</strong></a>
-			      </h4>
-			    </div>
-			    <div id="collapse2" class="panel-collapse collapse">
-			      <div class="panel-body">
-			      	
-			   		<div class="container">
-					  <h3 class="orderHeader" style="float: left">"Refrigerator is Leaking"</h3>
-					  <br></br>
-					  <br></br>
-					  <table class="table table-hover" style="width:800px; float: left">
-					    <thead>
-					      <tr>
-					        <th>Task</th>
-					      </tr>
-					    </thead>
-					    <tbody>
-					      <tr>
-					        <td id="descriptionDisplay"><strong>Description:</strong> After changing their name from the New Yardbirds, Led Zeppelin signed a deal with Atlantic Records that afforded them considerable artistic freedom. Although the group was initially unpopular with critics, they achieved significant commercial success with albums such as Led Zeppelin</td>
-					      </tr>
-					      <tr>
-					        <td><strong>Customer Information:</strong> Jane Doe, Age 43; Location: Basking Ridge NJ, 07920 87 Vanderveer Drive</td>
-					      </tr>
-					    </tbody>
-					  </table>
-					</div>
-			      </div>
-			    </div>
-			  </div>
-			</div>
-		</div>
-	    <div class="col-sm-2"></div>
-	</div>
-
-	<div class="row text-center">
-	    <div class="col-sm-2"></div>
-	    <div class="col-sm-8">
-			<div class="panel-group" id="accordion">
-			  <div class="panel panel-default">
-			    <div class="panel-heading">
-			      <h4 class="panel-title">
-			        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3"><strong>Work Order #3</strong></a>
-			      </h4>
-			    </div>
-			    <div id="collapse3" class="panel-collapse collapse">
-			      <div class="panel-body">
-			      	
-			   		<div class="container">
-					  <h3 class="orderHeader" style="float: left">"Engine in Smoking..."</h3>
-					  <br></br>
-					  <br></br>
-					  <table class="table table-hover" style="width:800px; float: left">
-					    <thead>
-					      <tr>
-					        <th>Task</th>
-					      </tr>
-					    </thead>
-					    <tbody>
-					      <tr>
-					        <td id="descriptionDisplay"><strong>Description:</strong> After changing their name from the New Yardbirds, Led Zeppelin signed a deal with Atlantic Records that afforded them considerable artistic freedom. Although the group was initially unpopular with critics, they achieved significant commercial success with albums such as Led Zeppelin</td>
-					      </tr>
-					      <tr>
-					        <td><strong>Customer Information:</strong> Jane Doe, Age 43; Location: Basking Ridge NJ, 07920 87 Vanderveer Drive</td>
-					      </tr>
-					    </tbody>
-					  </table>
-					</div>
-			      </div>
-			    </div>
-			  </div>
-			</div>
-					<button id="addButton"><a href="order_form.html">Add</a></button>
-
-		</div>
-	    <div class="col-sm-2"></div>
-	</div>
-
-	</div>
-	</div>
-
-	<script src="js/interfaceJS.js"></script>
+ -->
+ 	<!-- link to assets javascript for this page -->
+	<script src="assets/javascript/leader.js"></script>
 
 </body>
 
