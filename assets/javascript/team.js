@@ -1,6 +1,9 @@
+
+
+
 $(document).ready(function() {
 
-// adding work-space firebase     
+
 var config = {
     apiKey: "AIzaSyAKu1os4pi3oY7ThPvVeNefdWdXHRldy9Y",
     authDomain: "work-space-161100.firebaseapp.com",
@@ -8,14 +11,19 @@ var config = {
     storageBucket: "work-space-161100.appspot.com",
     messagingSenderId: "904019024650"
   };
+  
   firebase.initializeApp(config);
 
 var database = firebase.database();
 
-// initializing button for searching for youtube
-$("#srchYouTube").on(click, function (event){
+// adding work-space firebase     
+
+
+// initializing button for searching for srchYouTube
+$("#srchYouTube").on("click", function (event){
     event.preventDefault();
-    var title;
+    var title =  $("#youTube").val().trim();
+      console.log(title);
     var url = "https://www.googleapis.com/youtube/v3/search?q=";
     var key = "key=AIzaSyAKu1os4pi3oY7ThPvVeNefdWdXHRldy9Y&part=snippet";
     var queryUrl = url + title + "&" + key;
@@ -28,11 +36,11 @@ $("#srchYouTube").on(click, function (event){
         console.log(response);
 		console.log(response.items[0].id.videoId);
 
-      title =  $("#youtube").val().trim();
 
-      $("#").attr("src", ("https://www.youtube.com/watch?v=" + title));
+      // $("#").attr("src", ("https://www.youtube.com/watch?v=" + title));
 
-
+    $("#youTube").val("");
+    $("#youTube").attr("placeholder", "search you tube");
 
     })
 })
