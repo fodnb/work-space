@@ -1,0 +1,48 @@
+instructions:
+Project Goal:
+Build Something Awesome
+Requirements:
+Must uses at least two APIs
+Must use AJAX to pull data
+Must utilize at least one new library or technology that we haven’t discussed
+Must have a polished frontend / UI
+Must meet good quality coding standards (indentation, scoping, naming)
+Must NOT use alerts, confirms, or prompts (look into modals!)
+Must have some sort of repeating element (table, columns, etc)
+Must use Bootstrap or Alternative CSS Framework
+Must be Deployed (Heroku or Firebase)
+Must have User Input Validation
+Presentation Date:
+Two Weeks from Today
+due 3/18 before class
+work order app called work space
+2 apis youtube and stack exchange
+react.js or angular.js
+login screen
+tab to api resources
+table file sytem with color triage for work order list
+work space
+team screen 
+leader screen
+
+// simple navigation page button click to leader page or team page
+// leader page shows team members
+// leader must be able to build and assign a simple work order to any of the team
+// work orders will stack for each of the team members 
+// selecting a team member must display work orders issued
+// selecting a work order must display the work order and any comments made by the team.
+// completed work orders will be marked as complete
+
+// work orders should include a task input, issuer input, date and reference inputs on the leader side
+
+// work orders on the team side must display the above items and provide a time stamp to clock on and off the job and a commment input to allow team comments as the task progress.  
+
+// the main point of a work order is to issue a task to a worker and for the worker to describe the work performed.
+
+// the team page must have a login to add a team member that will display on the leader page
+// the team member page will only display work orders assigned to them by the leader
+// when they are complete the team member must mark the work order as complete
+
+// a resource page that uses the youtube api and the stack exchange api to provide a source of information.
+
+// get this working first then work in a triage system to mark hot jobs, not started jobs, jobs activily being worked on, jobs that have been started but not active.
