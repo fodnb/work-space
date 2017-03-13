@@ -8,12 +8,15 @@
 	
 	<!-- bootstrap cdn -->
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- jQuery cdn -->
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<!-- bootstrap javascript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link href="https://fonts.googleapis.com/css?family=Fugaz+One|Shrikhand" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
@@ -41,40 +44,6 @@
 		<!-- html options go here -->
 			<div id='w-o-list' class='tab-pane fade active'>
 			<!-- master list displayed here -->
-				<div class="panel-group" id="accordion">
-			  		<div class="panel panel-default"> 
-			    		<div id="topPanel" class="panel-heading">
-			      			<h4 class="panel-title">
-			        		<a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><strong>Work Order #1</strong></a>
-			      			</h4>
-			    		</div>
-			    		<div id="collapse1" class="panel-collapse collapse">
-			     		 	<div class="panel-body">
-			      	
-			   					<div class="container">
-					  				<h3 class="orderHeader" style="float: left">"Automobile Needs Repair"</h3>
-					  				<br></br>
-					  				<br></br>
-					  				<table class="table table-hover" style="width:800px; float: left">
-					    				<thead>
-					      					<tr>
-					        					<th>Task</th>
-					      					</tr>
-					    				</thead>
-					    				<tbody>
-					      					<tr>
-					        					<td id="descriptionDisplay"><strong>Description:</strong> After changing their name from the New Yardbirds, Led Zeppelin signed a deal with Atlantic Records that afforded them considerable artistic freedom. Although the group was initially unpopular with critics, they achieved significant commercial success with albums such as Led Zeppelin</td>
-					      					</tr>
-					      					<tr>
-					        					<td><strong>Customer Information:</strong> Jane Doe, Age 43; Location: Basking Ridge NJ, 07920 87 Vanderveer Drive</td>
-					      					</tr>
-					    				</tbody>
-					  				</table>
-								</div>
-			      			</div>
-			    		</div>
-			  		</div>
-				</div>
 			</div>
 			<div id='new-w-o' class='tab-pane fade'>
 			<!-- work order form here -->
@@ -91,8 +60,10 @@
 								<h3>Reference Number:</h3>
 								<input class="userInput" id="ref"/> 
 							</div>
+							
 							<!-- add new field to the custom-fields -->
-							<input placeholder="New Field Name" class="userInput" id="new-field"> <button class="addField" id="addButton">Add Field</button>
+							<!-- <input placeholder="New Field Name" class="userInput" id="new-field"> <button class="addField" id="addButton">Add Field</button> -->
+
 							<!-- this ends the header fields for the work order -->
 							<h3>Task Description:</h3>
 							<input class="userInput" id="w-o-task" style="width:500p;;height: 100px"> 
