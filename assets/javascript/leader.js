@@ -1,5 +1,6 @@
 
 var leader = {
+	teamLdr: '',
 	createWO: 	function() {
 					$('#add-w-o').click(function() {
 						// collect field inputs
@@ -45,4 +46,8 @@ var leader = {
 	},// end createWO
 	
 };//end leader object
-$('document').ready(leader.createWO);
+$('document').ready(function(){
+	leader.createWO();
+	leader.teamLdr = localStorage.getItem('username');
+	console.log(leader.teamLdr);
+});
