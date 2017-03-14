@@ -1,51 +1,126 @@
-
-
-
 $(document).ready(function() {
 
 
-var config = {
-    apiKey: "AIzaSyAKu1os4pi3oY7ThPvVeNefdWdXHRldy9Y",
-    authDomain: "work-space-161100.firebaseapp.com",
-    databaseURL: "https://work-space-161100.firebaseio.com",
-    storageBucket: "work-space-161100.appspot.com",
-    messagingSenderId: "904019024650"
-  };
-  
-  firebase.initializeApp(config);
+    var config = {
+        apiKey: "AIzaSyAKu1os4pi3oY7ThPvVeNefdWdXHRldy9Y",
+        authDomain: "work-space-161100.firebaseapp.com",
+        databaseURL: "https://work-space-161100.firebaseio.com",
+        storageBucket: "work-space-161100.appspot.com",
+        messagingSenderId: "904019024650"
+    };
 
-var database = firebase.database();
+    firebase.initializeApp(config);
 
-// adding work-space firebase     
+    var database = firebase.database();
 
-
-// initializing button for searching for srchYouTube
-$("#srchYouTube").on("click", function (event){
-    event.preventDefault();
-    var title =  $("#youTube").val().trim();
-      console.log(title);
-    var url = "https://www.googleapis.com/youtube/v3/search?q=";
-    var key = "key=AIzaSyAKu1os4pi3oY7ThPvVeNefdWdXHRldy9Y&part=snippet";
-    var queryUrl = url + title + "&" + key;
-    $.ajax({
-
-        url: queryUrl,
-        method: "GET"
-
-    }).done(function(response) {
-        console.log(response);
-		console.log(response.items[0].id.videoId);
+    // adding work-space firebase     
 
 
-      // $("#").attr("src", ("https://www.youtube.com/watch?v=" + title));
+    // initializing button for searching for srchYouTube
+    $("#srchYouTube").on("click", function(event) {
+        var title = $("#youTube").val().trim();
+        if (title.length > 0) {
+            $("#srchDisplay").empty();
+            event.preventDefault();
 
-    $("#youTube").val("");
-    $("#youTube").attr("placeholder", "search you tube");
+            console.log(title);
+            var url = "https://www.googleapis.com/youtube/v3/search?q=";
+            var key = "&key=AIzaSyAKu1os4pi3oY7ThPvVeNefdWdXHRldy9Y&part=snippet";
+            var queryUrl = url + title + key;
+            $.ajax({
 
+                url: queryUrl,
+                method: "GET"
+
+            }).done(function(response) {
+                console.log(response);
+                console.log(response.items[0].id.videoId);
+
+                // this variable holds the value of an embed video for youtube to pass into the iframe as a srchDisplay
+                var youTubeVideo = "https://www.youtube.com/embed/" + response.items[0].id.videoId;
+                console.log(youTubeVideo);
+
+                var newVideo = $("<iframe>");
+                newVideo.attr("src", youTubeVideo);
+                $("#srchDisplay").append(newVideo);
+                $("#youTube").val("");
+            })
+
+        }
     })
-})
+
+
+    // https://api.stackexchange.com/2.2/search/advanced?order=desc&sort=activity&title=windshield&site=mechanics&key=muJRZpFofGxd8uF9NSL7Kg((
+
+
+    $("#srchStack").on("click", function(event) {
+        $("#srchDisplay").empty();
+
+        var stackTitle = $("#stack").val().trim();
+        console.log(stackTitle.length);
+        for (var d = 0; d < stackTitle.length; d++) {
+            stackTitle = stackTitle.replace(" ", "+");
+        }
+
+
+        console.log(stackTitle + " StackTitle");
+        event.preventDefault();
+
+        if (stackTitle.length > 0) {
+            var url = "https://api.stackexchange.com/2.2/search/advanced?order=desc&sort=activity&answers=2&title="; //changing advanced to similar
+            var key = "&site=mechanics&key=muJRZpFofGxd8uF9NSL7Kg((";
+
+            var queryUrl = url + stackTitle + key;
+            console.log(queryUrl);
+            console.log(stackTitle);
+
+            $.ajax({
+
+                url: queryUrl,
+                method: "GET"
+            }).done(function(response) {
+                console.log(response);
+                console.log(response.items[0].link);
+                for (var i = 0; i < 10; i++) {
+                    var stackLink = response.items[i].link;
+
+                    var newDiv = $("<div>")
+                    var newPage = $("<a>");
+
+                    newPage.attr("href", stackLink);
+                    newPage.attr("target", "blank");
+                    newPage.html(stackLink);
+                    newPage.html(response.items[i].title)
+                    newPage.append(newDiv);
+                    $("#srchDisplay").append(newPage);
+                }
+            })
+        }
+        $("#stack").val("");
+    })
+
+
+$("<a>").on("click", function(event){
+
+    $("<a>").attr("target", $("#srchDisplay"));
+
+
 
 })
+
+
+
+
+
+
+
+})
+
+
+
+
+
+
 //Ben's suggestion
 // var query = new Object();
 // var url = [endpointURL?];
