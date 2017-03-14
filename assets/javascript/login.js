@@ -1,87 +1,97 @@
+// firebase config
 var config = {
-  apiKey: "AIzaSyAKu1os4pi3oY7ThPvVeNefdWdXHRldy9Y",
-  authDomain: "work-space-161100.firebaseapp.com",
-  databaseURL: "https://work-space-161100.firebaseio.com",
-  storageBucket: "work-space-161100.appspot.com",
-  messagingSenderId: "904019024650"
-};
-
+  				apiKey: "AIzaSyAKu1os4pi3oY7ThPvVeNefdWdXHRldy9Y",
+  				authDomain: "work-space-161100.firebaseapp.com",
+  				databaseURL: "https://work-space-161100.firebaseio.com",
+  				storageBucket: "work-space-161100.appspot.com",
+  				messagingSenderId: "904019024650"
+				};
+// initialize firebase
 firebase.initializeApp(config);
+// login object
+var login = {
 
-var database = firebase.database();
-
-/*
-//option to bring up navigation screen on event
-
-function loadNav() {
-	$("#imageBG").empty();
-
-	//create centered Div with separated links to manager's view html, and
-	//tech view html.
-
-	var linkDiv = $("<div class='linkDiv col-sm-4'>");
-	var manView = $("<a>").attr("href", "leader.html").text("Manager's view");
-	linkDiv.append(manView);
-	linkDiv.append(" | ")
-	var techView = $("<a>").attr("href", "team.html").text("Tech's view");
-	linkDiv.append(techView);
-	$("#imageBG").append("<div class='col-sm-4'>");
-	$("#imageBG").append(linkDiv);
-}*/
+	database: 	firebase.database(),
 
 
-//onclick event for login button
-$("#loginButton").on("click", function () {
-	//get values from input fields
-	var userPermission = $("input[name='optradio']:checked").val();
-	var username = $("#username").val().trim();
-	var password = $("#password").val().trim();
+	launch: 	function(){
+					//onclick event for login button
+					$("#loginButton").on("click", function () {
+						//get values from input fields
+						var username = $("#username").val().trim();
+						var password = $("#password").val().trim();
+						// calls the users object from the database
+						login.database.ref('users/'+ username +'/').once('value',function(snap){
+							// console.log(snap.val());
+							// if password is good
+							if(snap.val().password === password){
+								// console.log('good');
+								//use local sorage to carry over the user value
+								localStorage.setItem('username', JSON.stringify(username));
+								// loads the html in the window
+								if (snap.val().role === 'leader'){
+									// console.log('is leader');
+									window.location.href = 'leader.html';
+								}
+								if (snap.val().role === 'team'){
+									// console.log('is team');
+									window.location.href = 'team.html';
+								}
+							}
+							else {
+								console.log('bad');
+							}
+						});// end of call users
+					});// end of click event
+				} //end of launch function
+
+}; // end of login object
+$('document').ready(login.launch);
+
+// use below for reference validation needed above
+
+	// //function tells user if inputs are empty
+	// if 	((userPermission === undefined) || 
+	// 	(username === "") || (password === "")){
+	// 	$("#alert").show();
+	// }
+	// //function will send user to leader.html if their account info matches stored object
+	// else if (userPermission === "manager") {
+	// 	database.ref().once('value').then(function(snapshot) {
+	// 	 	snapshot.forEach(function(childSnapshot) {
+	// 	 		if ((username === childSnapshot.child("username").val()) && 
+	// 	 			(password === childSnapshot.child("password").val()) &&
+	// 	 			(userPermission === childSnapshot.child("userPermission").val()))
+	// 	 			{
+	// 	 			leader.teamLdr = username;		 				
+	// 	 			window.location.href = "leader.html";
+	// 	 			return true;
+	// 	 		}//end of if
+	// 	 		else {
+	// 	 			$("#alert").show();
+	// 	 		}//end of else	 		
+	// 	 	});//end of iterationfunction
+	// 	});// end of call function
+	// }// end of else if
+	// //function will send user to leader.html if their account info matches stored object
+	// else if (userPermission === "tech") {
+	// 	 database.ref().once('value').then(function(snapshot) {
+	// 	 	snapshot.forEach(function(childSnapshot) {
+	// 	 		if 	(username === childSnapshot.child("username").val()) &&
+	// 	 		 	(password === childSnapshot.child("password").val()) &&
+	// 	 		 	(userPermission === childSnapshot.child("userPermission").val())
+	// 	 		 	{
+		 		
+	// 	 			window.location.href = "team.html";
+	// 	 			return true
+	// 	 		}// end of nested if 
+	// 	 		else {
+	// 	 			$("#alert").show();
+	// 	 		}// end of else
+	// 	 	});// end of data iteration function
+	// 	});// end of database call function
+	// } // end of else if
+
+// });// end of click event
 
 
-	//function tells user if inputs are empty
-	if (userPermission === undefined) {
-		$("#alert").show();
-	}
-	else if (username === "" || password === "") {
-		$("#alert").show();
-	}
-	//function will send user to leader.html if their account info matches stored object
-	else if (userPermission === "manager") {
-		database.ref().once('value').then(function(snapshot) {
-		 	snapshot.forEach(function(childSnapshot) {
-		 		if (username === childSnapshot.child("username").val()) {
-		 			if (
-		 				password === childSnapshot.child("password").val() &&
-		 				userPermission === childSnapshot.child("userPermission").val()
-		 				) {
-		 					window.location.href = "leader.html";
-		 					return true
-		 			}
-		 			else {
-		 					$("#alert").show();
-		 			}
-		 		}
-		 	});
-		 });
-	}
-	//function will send user to leader.html if their account info matches stored object
-	else if (userPermission === "tech") {
-		 database.ref().once('value').then(function(snapshot) {
-		 	snapshot.forEach(function(childSnapshot) {
-		 		if (username === childSnapshot.child("username").val()) {
-		 			if (
-		 				password === childSnapshot.child("password").val() &&
-		 				userPermission === childSnapshot.child("userPermission").val()
-		 				) {
-		 					window.location.href = "team.html";
-		 					return true
-		 			}
-		 			else {
-		 					$("#alert").show();
-		 			}
-		 		}
-		 	});
-		 });
-	}
-
-});
