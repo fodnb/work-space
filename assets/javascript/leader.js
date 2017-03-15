@@ -26,17 +26,26 @@ var leader = {
 					});
 
 					leader.createWO();
-					// leader.test();
+					leader.displayWO();
 	},
 
 	createWO: 	function() {
 					$('#add-w-o').click(function() {
 						// collect field inputs
-						var issuer = $('#issuer').val().trim();
-						var date = $('#date').val().trim();
-						var ref = $('#ref').val().trim();
-						var task = $('#w-o-task').val().trim();
-
+						
+						var woObject = new Object();
+						woObject.issuer = $('#issuer').val().trim();
+						woObject.date = $('#date').val().trim();
+						woObject.ref = $('#ref').val().trim();
+						woObject.task = $('#w-o-task').val().trim();
+						// console.log(woObject);
+						// work_order = JSON.stringify(woObject);
+						var woID = leader.database.ref('work/').push().key;
+						// console.log(woID);
+						var updates = {};
+						updates['work/' + woID] = woObject;
+						leader.database.ref().update(updates);
+						
 						// clear fields
 						$('#issuer').val('');
 						$('#date').val('');
@@ -44,37 +53,53 @@ var leader = {
 						$('#w-o-task').val('');
 					});
 	},// end createWO
+	displayWO: 	function() {
+					leader.database.ref('work/').on('value', function(snap){
+						console.log(snap.val());
+						$('#w-o-list').empty();
+						snap.forEach(function(child){
+							console.log(child.val());
+						
+							var issuer = child.val().issuer;
+							var date = child.val().date;
+							var ref = child.val().ref;
+							var task = child.val().task;
+					
+							// create button for accordion
+							var newBtn = $('<button data-toggle="collapse" class="accordion">' + 
+									ref + '</button>');
+							// assign href
+							newBtn.attr('href', '#' + ref);
+							// append button
+							$('#w-o-list').append(newBtn);
+							// create accordion panel
+							var newDiv = $('<div class="panel-collapse collapse">');
+							// assign id for href above
+							newDiv.attr('id', ref);
+							// create table of information for work order
+							var newTable = $('<table>');
+							var newThead = $('<thead>');
+							var newTbody = $('<tbody>');
+							var newData = $('<tr><th><h3>Issuer: ' + issuer + '</h3></th></tr>');
+							newThead.append(newData);
+							var newData = $('<tr><th><h3>Date: ' + date + '</h3></th></tr>');
+							newThead.append(newData);
+							var newData = $('<tr><th><h3>Reference: ' + ref + '</h3></th></tr>');
+							newThead.append(newData);
+							var newData = $('<tr><td><h3>Task: ' + task + '</h3></td></tr>');
+							newTbody.append(newData);
+							// assemble table
+							newTable.append(newThead);
+							newTable.append(newTbody);
+							newDiv.append(newTable);
+							// append panel 
+							$('#w-o-list').append(newDiv);
+						});// end of forEach
+					});// end of on 
+	}
 	
 };//end leader object
 $('document').ready(leader.initiate);
 
 // reference
-						// // create button for accordion
-						// var newBtn = $('<button data-toggle="collapse" class="accordion">' + 
-						// 			ref + '</button>');
-						// // assign href
-						// newBtn.attr('href', '#' + ref);
-						// // append button
-						// $('#w-o-list').append(newBtn);
-						// // create accordion panel
-						// var newDiv = $('<div class="panel-collapse collapse">');
-						// // assign id for href above
-						// newDiv.attr('id', ref);
-						// // create table of information for work order
-						// var newTable = $('<table>');
-						// var newThead = $('<thead>');
-						// var newTbody = $('<tbody>');
-						// var newData = $('<tr><th><h3>Issuer: ' + issuer + '</h3></th></tr>');
-						// newThead.append(newData);
-						// var newData = $('<tr><th><h3>Date: ' + date + '</h3></th></tr>');
-						// newThead.append(newData);
-						// var newData = $('<tr><th><h3>Reference: ' + ref + '</h3></th></tr>');
-						// newThead.append(newData);
-						// var newData = $('<tr><td><h3>Task: ' + task + '</h3></td></tr>');
-						// newTbody.append(newData);
-						// // assemble table
-						// newTable.append(newThead);
-						// newTable.append(newTbody);
-						// newDiv.append(newTable);
-						// // append panel 
-						// $('#w-o-list').append(newDiv);
+						
