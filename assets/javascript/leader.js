@@ -31,23 +31,35 @@ var leader = {
 
 	createWO: 	function() {
 					$('#add-w-o').click(function() {
-						// collect field inputs
+
+						// create locations in the firebase for the list of work orders
+						var woID = leader.database.ref('work/').push().key;
 						
+						// collect field inputs
 						var woObject = new Object();
 						woObject.issuer = $('#issuer').val().trim();
+						woObject.assign = $('#assigned').val().trim();
 						woObject.date = $('#date').val().trim();
 						woObject.ref = $('#ref').val().trim();
 						woObject.task = $('#w-o-task').val().trim();
+						woObject.key = woID;
+
+						// create the assignment locations for each team member
+						var assnID = leader.database.ref('users/' + woObject.assign + '/assignments').push().key;
+						
 						// console.log(woObject);
-						// work_order = JSON.stringify(woObject);
-						var woID = leader.database.ref('work/').push().key;
 						// console.log(woID);
+						// console.log(assnID);
+
+						// update locations in fire base
 						var updates = {};
 						updates['work/' + woID] = woObject;
+						updates['users/' + woObject.assign + '/assignments' + assnID] = {key: woID};
 						leader.database.ref().update(updates);
-						
+
 						// clear fields
 						$('#issuer').val('');
+						$('#assigned').val('');
 						$('#date').val('');
 						$('#ref').val('');
 						$('#w-o-task').val('');
@@ -61,10 +73,11 @@ var leader = {
 							console.log(child.val());
 						
 							var issuer = child.val().issuer;
+							var assigned = child.val().assigned;
 							var date = child.val().date;
 							var ref = child.val().ref;
 							var task = child.val().task;
-					
+							var key = child.val().key;
 							// create button for accordion
 							var newBtn = $('<button data-toggle="collapse" class="accordion">' + 
 									ref + '</button>');
@@ -76,11 +89,15 @@ var leader = {
 							var newDiv = $('<div class="panel-collapse collapse">');
 							// assign id for href above
 							newDiv.attr('id', ref);
+							// firebase key value for reference
+							newDiv.attr('key', key);
 							// create table of information for work order
 							var newTable = $('<table>');
 							var newThead = $('<thead>');
 							var newTbody = $('<tbody>');
 							var newData = $('<tr><th><h3>Issuer: ' + issuer + '</h3></th></tr>');
+							newThead.append(newData);
+							var newData = $('<tr><th><h3>Assigned: ' + assigned + '</h3></th></tr>');
 							newThead.append(newData);
 							var newData = $('<tr><th><h3>Date: ' + date + '</h3></th></tr>');
 							newThead.append(newData);
@@ -96,7 +113,8 @@ var leader = {
 							$('#w-o-list').append(newDiv);
 						});// end of forEach
 					});// end of on 
-	}
+	},
+
 	
 };//end leader object
 $('document').ready(leader.initiate);
