@@ -1,3 +1,15 @@
+var config = {
+    apiKey: "AIzaSyAKu1os4pi3oY7ThPvVeNefdWdXHRldy9Y",
+    authDomain: "work-space-161100.firebaseapp.com",
+    databaseURL: "https://work-space-161100.firebaseio.com",
+    storageBucket: "work-space-161100.appspot.com",
+    messagingSenderId: "904019024650"
+};
+
+firebase.initializeApp(config);
+
+var database = firebase.database();
+
 var team = {
     database: firebase.database(),
     username: '',
@@ -14,28 +26,20 @@ var team = {
 
                     });
 
-                    team.createWO();
+                    //team.createWO(); !uncomment when we make this!!!!!
                     // team.test();
     },
+    onDisconnect: function () {
+                    team.username = JSON.parse(localStorage.getItem('username'));
+                    team.database.ref('users/'+ team.username + "/status").onDisconnect().set("offline");
+    },//end onDisconnect
 };// end of team object
 
 $(document).ready(function() {
     team.initiate();
-
-    var config = {
-        apiKey: "AIzaSyAKu1os4pi3oY7ThPvVeNefdWdXHRldy9Y",
-        authDomain: "work-space-161100.firebaseapp.com",
-        databaseURL: "https://work-space-161100.firebaseio.com",
-        storageBucket: "work-space-161100.appspot.com",
-        messagingSenderId: "904019024650"
-    };
-
-    firebase.initializeApp(config);
-
-    var database = firebase.database();
+    team.onDisconnect();
 
     // adding work-space firebase     
-
 
     // initializing button for searching for srchYouTube
     $("#srchYouTube").on("click", function(event) {
