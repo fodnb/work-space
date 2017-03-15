@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='en-US'>
 <head>
-	<meta name='veiwport' content='width=device-width scale=1'>
+	<meta name='veiwport' content='width=device-width initial-scale=1'>
 	<meta charset="utf-8">
 
 	<title>Leader Page</title>
@@ -12,18 +12,18 @@
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<!-- bootstrap javascript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+	<!-- style links -->
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link href="https://fonts.googleapis.com/css?family=Fugaz+One|Shrikhand" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
-	
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- firebase -->
+	<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
 </head>
 
 <body>
 	
 					<!--Logo and Navbar -->	
- 	<nav class="navbar navbar-inverse" style="background-color: ##222222">
+ 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="row text-center">
 						<br></br>
@@ -55,6 +55,8 @@
 							<div id='custom-fields'>
 								<h3>Issuer:</h3>
 								<input class="userInput" id="issuer"/>
+								<h3>Assigned</h3>
+								<input class='userInput' id='assigned'/>
 								<h3>Date:</h3>
 								<input class="userInput" id="date"/>
 								<h3>Reference Number:</h3>
@@ -66,7 +68,7 @@
 
 							<!-- this ends the header fields for the work order -->
 							<h3>Task Description:</h3>
-							<input class="userInput" id="w-o-task" style="width:500p;;height: 100px"> 
+							<input class="userInput" id="w-o-task"> 
 							<br></br>
 							<button class="btn btn-default" id="add-w-o">Create W/O</button>
 						<!-- </div> -->

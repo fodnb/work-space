@@ -22,7 +22,7 @@ var login = {
 						var password = $("#password").val().trim();
 						// calls the users object from the database
 						login.database.ref('users/'+ username +'/').once('value',function(snap){
-							// console.log(snap.val());
+							console.log(snap.val());
 							// if password is good
 							if(snap.val().password === password){
 								// console.log('good');
@@ -31,11 +31,11 @@ var login = {
 								// loads the html in the window
 								if (snap.val().role === 'leader'){
 									// console.log('is leader');
-									window.location.href = 'leader.html';
+									// window.location.href = 'leader.html';
 								}
 								if (snap.val().role === 'team'){
 									// console.log('is team');
-									window.location.href = 'team.html';
+									// window.location.href = 'team.html';
 								}
 							}
 							else {
