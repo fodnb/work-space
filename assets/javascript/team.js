@@ -1,5 +1,26 @@
-$(document).ready(function() {
+var team = {
+    database: firebase.database(),
+    username: '',
+    work: [],
+    initiate:   function() {
+                    
+                    team.username = JSON.parse(localStorage.getItem('username'));
+                    console.log(team.username);
+                    var updates = {};
+                    updates['users/' + team.username + '/status'] = 'online';
+                    team.database.ref().update(updates);
+                    team.database.ref('users/'+ team.username).once('value', function(snap){
+                        console.log(snap.val());
 
+                    });
+
+                    team.createWO();
+                    // team.test();
+    },
+};// end of team object
+
+$(document).ready(function() {
+    team.initiate();
 
     var config = {
         apiKey: "AIzaSyAKu1os4pi3oY7ThPvVeNefdWdXHRldy9Y",
