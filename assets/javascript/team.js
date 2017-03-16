@@ -47,8 +47,11 @@ $(document).ready(function() {
 
         snapshot.forEach(function(childsnapshot) {
             var childData = childsnapshot.val();
-            // console.log(childData.assign);
-            // if(childData.assign === )    
+        
+        console.log(team.username);
+            if(team.username === childData.assign){
+
+
             newDiv = $("<div>");
             newButComplete = $("<button id='workComplete'>");
             // newPonButton = $("<p>");
@@ -75,8 +78,7 @@ $(document).ready(function() {
    $("#workOrder").append(newLine);
  $("#comment").val(" ");
 
-
-
+});
 // database.ref("work").push({
 //     comment: comment
 
@@ -84,7 +86,7 @@ $(document).ready(function() {
 // });
 
 
-});
+};
 
 
         });
