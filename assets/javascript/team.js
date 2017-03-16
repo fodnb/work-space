@@ -1,3 +1,15 @@
+var config = {
+    apiKey: "AIzaSyAKu1os4pi3oY7ThPvVeNefdWdXHRldy9Y",
+    authDomain: "work-space-161100.firebaseapp.com",
+    databaseURL: "https://work-space-161100.firebaseio.com",
+    storageBucket: "work-space-161100.appspot.com",
+    messagingSenderId: "904019024650"
+};
+
+firebase.initializeApp(config);
+
+var database = firebase.database();
+
 var team = {
     database: firebase.database(),
     username: '',
@@ -14,27 +26,88 @@ var team = {
 
                     });
 
-                    team.createWO();
+                    //team.createWO(); !uncomment when we make this!!!!!
                     // team.test();
     },
+    onDisconnect: function () {
+                    team.username = JSON.parse(localStorage.getItem('username'));
+                    team.database.ref('users/'+ team.username + "/status").onDisconnect().set("offline");
+    },//end onDisconnect
 };// end of team object
 
 $(document).ready(function() {
     team.initiate();
-
-    var config = {
-        apiKey: "AIzaSyAKu1os4pi3oY7ThPvVeNefdWdXHRldy9Y",
-        authDomain: "work-space-161100.firebaseapp.com",
-        databaseURL: "https://work-space-161100.firebaseio.com",
-        storageBucket: "work-space-161100.appspot.com",
-        messagingSenderId: "904019024650"
-    };
-
-    firebase.initializeApp(config);
-
-    var database = firebase.database();
+    team.onDisconnect();
 
     // adding work-space firebase     
+
+  var workRef = database.ref('work');
+
+    workRef.on("value", function(snapshot) {
+
+        snapshot.forEach(function(childsnapshot) {
+            var childData = childsnapshot.val();
+            // console.log(childData.assign);
+            // if(childData.assign === )    
+            newDiv = $("<div>");
+            newButComplete = $("<button id='workComplete'>");
+            // newPonButton = $("<p>");
+            newButComplete.html("WORK COMPLETE");
+
+            newDiv.append(
+                '<ul class="list-group">'
+
+                + '<li class="list-group-item">' + childData.key + '</li>' + '<li class="list-group-item">' + childData.date + '</li>' + '<li class="list-group-item" id="workOrder">' + childData.task + '</li>'
+
+                + '<label for="comment" id="newComment">COMMENT<br> </label>' + '<input class="form-control" id="comment" type="text">' + '</ul>');
+
+
+            // newButComplete.append(newPonButton);
+            newDiv.append(newButComplete);
+            $("#w-o-issued").append(newDiv);
+
+
+            $("#workComplete").on("click", function(event){
+    event.preventDefault();
+   var comment = $("#comment").val().trim();
+   var newLine = $("<div class='form-control'>");
+   newLine.html(comment);
+   $("#workOrder").append(newLine);
+ $("#comment").val(" ");
+
+
+
+// database.ref("work").push({
+//     comment: comment
+
+
+// });
+
+
+});
+
+
+        });
+
+    }, function(errorObject) {
+        console.log("Errors handled: " + errorObject.code);
+    });
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     // initializing button for searching for srchYouTube
@@ -71,7 +144,7 @@ $(document).ready(function() {
     })
 
 
-    // https://api.stackexchange.com/2.2/search/advanced?order=desc&sort=activity&title=windshield&site=mechanics&key=muJRZpFofGxd8uF9NSL7Kg((
+
 
 
     $("#srchStack").on("click", function(event) {
@@ -88,7 +161,7 @@ $(document).ready(function() {
         event.preventDefault();
 
         if (stackTitle.length > 0) {
-            var url = "https://api.stackexchange.com/2.2/search/advanced?order=desc&sort=activity&answers=2&title="; //changing advanced to similar
+            var url = "https://api.stackexchange.com/2.2/search/advanced?order=desc&sort=activity&answers=2&title=";
             var key = "&site=mechanics&key=muJRZpFofGxd8uF9NSL7Kg((";
 
             var queryUrl = url + stackTitle + key;
@@ -121,13 +194,13 @@ $(document).ready(function() {
     })
 
 
-$("<a>").on("click", function(event){
+    $("<a>").on("click", function(event) {
 
-    $("<a>").attr("target", $("#srchDisplay"));
+        $("<a>").attr("target", $("#srchDisplay"));
 
 
 
-})
+    })
 
 
 

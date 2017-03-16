@@ -13,33 +13,34 @@ var login = {
 
 	database: 	firebase.database(),
 
-
 	launch: 	function(){
 					//onclick event for login button
 					$("#loginButton").on("click", function () {
 						//get values from input fields
 						var username = $("#username").val().trim();
 						var password = $("#password").val().trim();
+						var role = $("input[name='optradio']:checked").val();
 						// calls the users object from the database
 						login.database.ref('users/'+ username +'/').once('value',function(snap){
 							console.log(snap.val());
 							// if password is good
-							if(snap.val().password === password){
+							if(snap.val().password === password &&
+								snap.val().role === role){
 								// console.log('good');
 								//use local sorage to carry over the user value
 								localStorage.setItem('username', JSON.stringify(username));
 								// loads the html in the window
 								if (snap.val().role === 'leader'){
 									// console.log('is leader');
-									// window.location.href = 'leader.html';
+									window.location.href = 'leader.html';
 								}
 								if (snap.val().role === 'team'){
 									// console.log('is team');
-									// window.location.href = 'team.html';
+									window.location.href = 'team.html';
 								}
 							}
 							else {
-								console.log('bad');
+								$("#alert").show();
 							}
 						});// end of call users
 					});// end of click event
