@@ -1,27 +1,47 @@
+var config = {
+    apiKey: "AIzaSyAKu1os4pi3oY7ThPvVeNefdWdXHRldy9Y",
+    authDomain: "work-space-161100.firebaseapp.com",
+    databaseURL: "https://work-space-161100.firebaseio.com",
+    storageBucket: "work-space-161100.appspot.com",
+    messagingSenderId: "904019024650"
+};
+
+firebase.initializeApp(config);
+
+var database = firebase.database();
+
+var team = {
+    database: firebase.database(),
+    username: '',
+    work: [],
+    initiate:   function() {
+                    
+                    team.username = JSON.parse(localStorage.getItem('username'));
+                    console.log(team.username);
+                    var updates = {};
+                    updates['users/' + team.username + '/status'] = 'online';
+                    team.database.ref().update(updates);
+                    team.database.ref('users/'+ team.username).once('value', function(snap){
+                        console.log(snap.val());
+
+                    });
+
+                    //team.createWO(); !uncomment when we make this!!!!!
+                    // team.test();
+    },
+    onDisconnect: function () {
+                    team.username = JSON.parse(localStorage.getItem('username'));
+                    team.database.ref('users/'+ team.username + "/status").onDisconnect().set("offline");
+    },//end onDisconnect
+};// end of team object
+
 $(document).ready(function() {
-
-
-    var config = {
-        apiKey: "AIzaSyAKu1os4pi3oY7ThPvVeNefdWdXHRldy9Y",
-        authDomain: "work-space-161100.firebaseapp.com",
-        databaseURL: "https://work-space-161100.firebaseio.com",
-        storageBucket: "work-space-161100.appspot.com",
-        messagingSenderId: "904019024650"
-    };
-
-    firebase.initializeApp(config);
-
-    var database = firebase.database();
+    team.initiate();
+    team.onDisconnect();
 
     // adding work-space firebase     
 
-
-    var username = JSON.parse(localStorage.getItem(username));
-    console.log(username);
-
-
-
-    var workRef = database.ref('work');
+  var workRef = database.ref('work');
 
     workRef.on("value", function(snapshot) {
 
@@ -75,6 +95,7 @@ $(document).ready(function() {
 
 
     
+
 
 
 
