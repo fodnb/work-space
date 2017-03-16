@@ -44,8 +44,9 @@ var leader = {
 						woObject.task = $('#w-o-task').val().trim();
 						woObject.key = woID;
 
-						// create the assignment locations for each team member
-						var assnID = leader.database.ref('users/' + woObject.assign + '/assignments').push().key;
+						// create the assignment location and push key values
+						var assignments = leader.database.ref('users/' + woObject.assign + '/assignments');
+						assignments.push({key: woID});
 						
 						// console.log(woObject);
 						// console.log(woID);
@@ -54,7 +55,6 @@ var leader = {
 						// update locations in fire base
 						var updates = {};
 						updates['work/' + woID] = woObject;
-						updates['users/' + woObject.assign + '/assignments' + assnID] = {key: woID};
 						leader.database.ref().update(updates);
 
 						// clear fields

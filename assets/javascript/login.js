@@ -31,11 +31,11 @@ var login = {
 								// loads the html in the window
 								if (snap.val().role === 'leader'){
 									// console.log('is leader');
-									// window.location.href = 'leader.html';
+									window.location.href = 'leader.html';
 								}
 								if (snap.val().role === 'team'){
 									// console.log('is team');
-									// window.location.href = 'team.html';
+									window.location.href = 'team.html';
 								}
 							}
 							else {
