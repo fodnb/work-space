@@ -21,12 +21,28 @@ var leader = {
 					updates['users/' + leader.username + '/status'] = 'online';
 					leader.database.ref().update(updates);
 					leader.database.ref('users/'+ leader.username).once('value', function(snap){
-						console.log(snap.val());
-
+						//console.log(snap.val());
 					});
-
 					leader.createWO();
 					leader.displayWO();
+					leader.teamList();
+	},//end initiate
+
+	onDisconnect: function () {
+					leader.username = JSON.parse(localStorage.getItem('username'));
+					leader.database.ref('users/'+ leader.username + "/status").onDisconnect().set("offline")
+	},//end onDisconnect
+
+	teamList: 	function() {
+					leader.database.ref('users').on("value", function(snap) {
+						$("#team-list").empty();
+						snap.forEach(function (childSnap) {
+							if (childSnap.child("status").val() === "online" &&
+								childSnap.child("role").val() === "team") {
+								$("#team-list").append("<p>" + childSnap.child("name").val() + "</p>")
+							}
+						});
+					});
 	},
 
 	createWO: 	function() {
@@ -67,10 +83,10 @@ var leader = {
 	},// end createWO
 	displayWO: 	function() {
 					leader.database.ref('work/').on('value', function(snap){
-						console.log(snap.val());
+						//console.log(snap.val());
 						$('#w-o-list').empty();
 						snap.forEach(function(child){
-							console.log(child.val());
+							//console.log(child.val());
 						
 							var issuer = child.val().issuer;
 							var assigned = child.val().assigned;
@@ -117,7 +133,7 @@ var leader = {
 
 	
 };//end leader object
-$('document').ready(leader.initiate);
-
-// reference
-						
+$('document').ready(function() {
+	leader.initiate();
+	leader.onDisconnect();
+});	
