@@ -1,3 +1,14 @@
+ var config = {
+    apiKey: "AIzaSyAKu1os4pi3oY7ThPvVeNefdWdXHRldy9Y",
+    authDomain: "work-space-161100.firebaseapp.com",
+    databaseURL: "https://work-space-161100.firebaseio.com",
+    storageBucket: "work-space-161100.appspot.com",
+    messagingSenderId: "904019024650"
+  };
+  firebase.initializeApp(config);
+
+var database = firebase.database();
+
 
 var leader = {
 	teamLdr: '',
@@ -9,6 +20,9 @@ var leader = {
 						var ref = $('#ref').val().trim();
 						var task = $('#w-o-task').val().trim();
 						// create button for accordion
+						var wOrder = [];
+
+
 						var newBtn = $('<button data-toggle="collapse" class="accordion">' + 
 									ref + '</button>');
 						// assign href
@@ -35,6 +49,10 @@ var leader = {
 						newTable.append(newThead);
 						newTable.append(newTbody);
 						newDiv.append(newTable);
+						console.log(issuer);
+						console.log(date);
+						console.log(ref);
+						console.log(task);
 						// append panel 
 						$('#w-o-list').append(newDiv);
 						// clear fields
