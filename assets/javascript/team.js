@@ -49,7 +49,7 @@ var team = {
         var workRef = database.ref('work');
 
         workRef.on("value", function(snapshot) {
-
+             $("#w-o-issued").empty(); // this may need to be moved
 
             snapshot.forEach(function(childsnapshot) {
                 var childData = childsnapshot.val();
@@ -64,17 +64,10 @@ var team = {
                     newButComplete.attr("class", "commit");
                     newButComplete.val(childData.ref);
                     newButComplete.attr("key", childData.key);
-                  
                     newButComplete.html("ADD COMMENT");
 
-                       for(var i = 1; i < comments.length; i++){
-                        console.log(comments[i]);
-                         var newComment = $("<div class='form-control'>");
 
-                         newComment.append(comments[i]);
-                         $("#wo"+childData.key).append(newComment);
-                    }
-
+                
                     newDiv.append(
                         '<ul class="list-group">'
 
@@ -92,6 +85,16 @@ var team = {
                     $("#w-o-issued").append(newDiv);
                     $("#workOrder").attr("id", "wO" + childData.ref);
 
+                           for(var i = 1; i < comments.length; i++){
+                        // newC = $("<div>");  
+                        // newC = $("<div class='form-control'>");
+                        newC = $("<li>");
+                         // newComment.text(comments[i]);
+                         newC.html("COMMENT#"+[i] + ":" + " " + comments[i]);
+                         $('#wO' + childData.ref).append(newC);
+                         console.log(childData.ref);
+
+                    }
 
 
                  
@@ -102,14 +105,32 @@ var team = {
                         // event.preventDefault();
                         var butValue = $(this).val();
                         var comment = $("#" + butValue).val();
-                          var newLine = $("<div class='form-control'>");
+                        comment = comment.toUpperCase();
+                        var newLine = $("<div class='form-control'>");
                         newLine.html(comment);
                         var keyValue = $(this).attr("key");
                         console.log(keyValue);
 
                         if (comment.length > 0) {
                             $("#wO" + butValue).append(newLine);
-                            team.database.ref("work/" + keyValue).once("value", function(snap) {
+                            // team.database.ref("work/" + keyValue).once("value", function(snap) {
+                            //     console.log(snap.val());
+                            //     var butObject = new Object();
+                            //     butObject.issuer = snap.val().issuer;
+                            //     butObject.assign = snap.val().assign;
+                            //     butObject.date = snap.val().date;
+                            //     butObject.ref = snap.val().ref;
+                            //     butObject.task = snap.val().task;
+                            //     butObject.comment = snap.val().comment;
+                            //     butObject.key = snap.val().key;
+                            //     butObject.comment.push(comment);
+                            //     console.log(butObject);
+                            //     var updates = {};
+                            //     updates['work/'+ butObject.key] = butObject;
+                            //     team.database.ref().update(updates);
+                            }
+
+                               team.database.ref("work/" + keyValue).once("value", function(snap) {
                                 console.log(snap.val());
                                 var butObject = new Object();
                                 butObject.issuer = snap.val().issuer;
@@ -126,7 +147,6 @@ var team = {
                                 team.database.ref().update(updates);
                             });
 
-
                             $("input").val("");
 
 
@@ -139,7 +159,7 @@ var team = {
                             console.log(team.database.comment)
                             console.log(childData.comment);
 
-                        }
+                        
 
                     });
 
