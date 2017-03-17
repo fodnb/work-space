@@ -11,100 +11,154 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 var team = {
-database: firebase.database(),
-username: '',
-work: [],
-initiate: function() {
+    database: firebase.database(),
+    username: '',
+    work: [],
+    initiate: function() {
 
-    team.username = JSON.parse(localStorage.getItem('username'));
-    console.log(team.username);
-    var updates = {};
-    updates['users/' + team.username + '/status'] = 'online';
-    team.database.ref().update(updates);
-    team.database.ref('users/' + team.username).once('value', function(snap) {
-        console.log(snap.val());
-        team.addWorkOrders();
-        team.onDisconnect();
-    });
+        team.username = JSON.parse(localStorage.getItem('username'));
+        console.log(team.username);
+        var updates = {};
+        updates['users/' + team.username + '/status'] = 'online';
+        team.database.ref().update(updates);
+        // team.database.ref("work/").on("value", function(snap){
+        //     snap.forEach(function(childsnap){
+        //         console.log(childsnap.val());
+        //     })
+        // });
+        team.database.ref('users/' + team.username).once('value', function(snap) {
+            console.log(snap.val());
+            team.addWorkOrders();
+            team.onDisconnect();
+        });
 
-    //team.createWO(); !uncomment when we make this!!!!!
-    // team.test();
-},
-onDisconnect: function() {
-    team.username = JSON.parse(localStorage.getItem('username'));
-    team.database.ref('users/' + team.username + "/status").onDisconnect().set("offline");
-}, //end onDisconnect
-
-
-addWorkOrders: function() {
-
-            team.database.ref().
-            // team.initiate();
-            // adding work-space firebase     
-            var workRef = database.ref('work');
-
-            workRef.on("value", function(snapshot) {
-
-                snapshot.forEach(function(childsnapshot) {
-                    var childData = childsnapshot.val();
-
-                    console.log(team.username);
-                    if (team.username === childData.assign) {
+        //team.createWO(); !uncomment when we make this!!!!!
+        // team.test();
+    },
+    onDisconnect: function() {
+        team.username = JSON.parse(localStorage.getItem('username'));
+        team.database.ref('users/' + team.username + "/status").onDisconnect().set("offline");
+    }, //end onDisconnect
 
 
-                        newDiv = $("<div>");
-                        newButComplete = $("<button>");
-                        newButComplete.attr("class", "commit");
-                        newButComplete.val(childData.ref);
-                        // newPonButton = $("<p>");
-                        newButComplete.html("ADD COMMENT");
+    addWorkOrders: function() {
 
-                        newDiv.append(
-                            '<ul class="list-group">'
+        // team.database.ref().
+        // team.initiate();
+        // adding work-space firebase     
+        var workRef = database.ref('work');
 
-                            + '<li class="list-group-item">' + childData.key + '</li>' + '<li class="list-group-item">' + childData.date + '</li>' + '<li class="list-group-item" id="workOrder">' + childData.task + '</li>'
-
-                            + '<label for="comment" id="newComment">COMMENT<br> </label>' + '<input class="form-control" id="'+childData.ref+'"  type="text">' + '</ul>');
-                        newDiv.append(newButComplete);
-
-                        $("#comment").val(childData.ref);
-
-                        $("#w-o-issued").append(newDiv);
-                        $("#workOrder").attr("id", "wO"+childData.ref);
+        workRef.on("value", function(snapshot) {
 
 
+            snapshot.forEach(function(childsnapshot) {
+                var childData = childsnapshot.val();
 
-                        $(".commit").on("click", function() {
+                console.log(team.username);
+                if (team.username === childData.assign) {
+                    console.log(childData.comment);
+                    var comments = childData.comment;
+                    
+                    newDiv = $("<div>");
+                    newButComplete = $("<button>");
+                    newButComplete.attr("class", "commit");
+                    newButComplete.val(childData.ref);
+                    newButComplete.attr("key", childData.key);
+                  
+                    newButComplete.html("ADD COMMENT");
 
-                            // event.preventDefault();
-                            var butValue = $(this).val();
-                            comment = $("#"+butValue).val();
-                            var newLine = $("<div class='form-control'>");
-                            newLine.html(comment);
+                       for(var i = 1; i < comments.length; i++){
+                        console.log(comments[i]);
+                         var newComment = $("<div class='form-control'>");
 
-                            if(comment.length > 0){
-                            $("#wO"+butValue).append(newLine);
+                         newComment.append(comments[i]);
+                         $("#wo"+childData.key).append(newComment);
+                    }
+
+                    newDiv.append(
+                        '<ul class="list-group">'
+
+                        + '<li class="list-group-item">' + childData.key + '</li>' + '<li class="list-group-item">' + childData.date + '</li>' + '<li class="list-group-item" id="workOrder">' + childData.task + '</li>'
+
+                        + '<label for="comment" id="newComment">COMMENT<br> </label>' + '<input class="form-control" id="' + childData.ref + '"  type="text">' + '</ul>');
+                    newDiv.append(newButComplete);
+
+
+
+
+
+                    // $("#comment").val(childData.ref);
+
+                    $("#w-o-issued").append(newDiv);
+                    $("#workOrder").attr("id", "wO" + childData.ref);
+
+
+
+                 
+
+
+                    $(".commit").on("click", function() {
+
+                        // event.preventDefault();
+                        var butValue = $(this).val();
+                        var comment = $("#" + butValue).val();
+                          var newLine = $("<div class='form-control'>");
+                        newLine.html(comment);
+                        var keyValue = $(this).attr("key");
+                        console.log(keyValue);
+
+                        if (comment.length > 0) {
+                            $("#wO" + butValue).append(newLine);
+                            team.database.ref("work/" + keyValue).once("value", function(snap) {
+                                console.log(snap.val());
+                                var butObject = new Object();
+                                butObject.issuer = snap.val().issuer;
+                                butObject.assign = snap.val().assign;
+                                butObject.date = snap.val().date;
+                                butObject.ref = snap.val().ref;
+                                butObject.task = snap.val().task;
+                                butObject.comment = snap.val().comment;
+                                butObject.key = snap.val().key;
+                                butObject.comment.push(comment);
+                                console.log(butObject);
+                                var updates = {};
+                                updates['work/'+ butObject.key] = butObject;
+                                team.database.ref().update(updates);
+                            });
+
+
                             $("input").val("");
+
+
+                  
+
+                            //  need to reference object in database and add to it
+                            // team.database.ref().push({
+                            //    woObject.comment: comment 
+                            // });
+                            console.log(team.database.comment)
+                            console.log(childData.comment);
+
                         }
 
-                        });
+                    });
 
-                    };
+                };
 
 
-                });
-
-            }, function(errorObject) {
-                console.log("Errors handled: " + errorObject.code);
             });
-        
+
+        }, function(errorObject) {
+            console.log("Errors handled: " + errorObject.code);
+        });
+
     }, //  end of work order function
 }; // end of team object
 
 
 
 
-  $(document).ready(team.initiate);
+$(document).ready(team.initiate);
 
 
 
