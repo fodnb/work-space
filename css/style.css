@@ -147,8 +147,7 @@ h3 {
 .panel-body {
 	width: 800px;
 }
-
-.searchBtn {
+#srchYouTube {
 	background-color:#ededed;
 	-moz-border-radius:28px;
 	-webkit-border-radius:28px;
