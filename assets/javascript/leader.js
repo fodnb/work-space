@@ -15,7 +15,6 @@ var leader = {
 	username: '',
 	work: [],
 	initiate: 	function() {
-					
 					leader.username = JSON.parse(localStorage.getItem('username'));
 					console.log(leader.username);
 					var updates = {};
@@ -27,7 +26,20 @@ var leader = {
 					leader.createWO();
 					leader.displayWO();
 					leader.teamList();
+					leader.newNumber();
 	},//end initiate
+
+	newNumber: function() {
+					leader.database.ref("lastReference").once("value", function(snap) {
+						var howMany = snap.val().split(/\D/)
+						howMany = howMany[howMany.length - 1]
+						console.log(howMany)
+						howMany = parseInt(howMany)
+						for (count = 0; count < howMany; count++) {
+							_.uniqueId()
+						};
+					});
+	},
 
 	onDisconnect: function () {
 					leader.username = JSON.parse(localStorage.getItem('username'));
@@ -48,7 +60,6 @@ var leader = {
 
 	createWO: 	function() {
 					$('#add-w-o').click(function() {
-
 						// create locations in the firebase for the list of work orders
 						var woID = leader.database.ref('work/').push().key;
 						
@@ -60,6 +71,8 @@ var leader = {
 						// create button for accordion
 						var wOrder = [];
 
+						var ref = _.uniqueId(ref)
+						leader.database.ref("/lastReference").set(ref);
 
 						var newBtn = $('<button data-toggle="collapse" class="accordion">' + 
 									ref + '</button>');
@@ -98,7 +111,7 @@ var leader = {
 						woObject.issuer = $('#issuer').val().trim();
 						woObject.assign = $('#assigned').val().trim();
 						woObject.date = $('#date').val().trim();
-						woObject.ref = $('#ref').val().trim();
+						woObject.ref = ref
 						woObject.task = $('#w-o-task').val().trim();
 						woObject.key = woID;
 
@@ -131,7 +144,7 @@ var leader = {
 							//console.log(child.val());
 						
 							var issuer = child.val().issuer;
-							var assigned = child.val().assigned;
+							var assigned = child.val().assign;
 							var date = child.val().date;
 							var ref = child.val().ref;
 							var task = child.val().task;
