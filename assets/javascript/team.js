@@ -14,6 +14,7 @@ var team = {
     database: firebase.database(),
     username: '',
     work: [],
+
     initiate: function() {
 
         team.username = JSON.parse(localStorage.getItem('username'));
@@ -180,19 +181,6 @@ var team = {
 $(document).ready(team.initiate);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // initializing button for searching for srchYouTube
 $("#srchYouTube").on("click", function(event) {
     var title = $("#youTube").val().trim();
@@ -229,7 +217,7 @@ $("#srchYouTube").on("click", function(event) {
 
 
 
-
+// search stack exchange function
 $("#srchStack").on("click", function(event) {
     $("#srchDisplay").empty();
 
@@ -276,30 +264,9 @@ $("#srchStack").on("click", function(event) {
     $("#stack").val("");
 })
 
-
+// set attribute function
 $("<a>").on("click", function(event) {
 
     $("<a>").attr("target", $("#srchDisplay"));
 
-
-
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Ben's suggestion
-// var query = new Object();
-// var url = [endpointURL?];
-// query.key = value;  adds to the object query
-// url += $.param(query);  passes the object to the param function that builds the query url titled url
