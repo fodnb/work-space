@@ -101,7 +101,6 @@ var team = {
 
 
                     $(".commit").on("click", function() {
-
                         // event.preventDefault();
                         var butValue = $(this).val();
                         var comment = $("#" + butValue).val();

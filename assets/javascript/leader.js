@@ -59,6 +59,7 @@ var leader = {
 						var task = $('#w-o-task').val().trim();
 						// create button for accordion
 						var wOrder = [];
+						
 
 
 						var newBtn = $('<button data-toggle="collapse" class="accordion">' + 
