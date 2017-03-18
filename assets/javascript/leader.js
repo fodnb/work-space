@@ -54,7 +54,7 @@ var leader = {
 							if (childSnap.child("status").val() === "online" &&
 								childSnap.child("role").val() === "team") {
 								$("#team-list").append("<p>" + childSnap.child("name").val() +" Username: " +
-								childSnap.child("username") + "</p>")
+								childSnap.key + "</p>")
 							}
 						});
 					});
