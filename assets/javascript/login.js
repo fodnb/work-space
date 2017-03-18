@@ -94,5 +94,3 @@ $('document').ready(login.launch);
 	// } // end of else if
 
 // });// end of click event
-
-
