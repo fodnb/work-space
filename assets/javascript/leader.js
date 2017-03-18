@@ -116,7 +116,7 @@ var leader = {
 
 						woObject.ref = ref;
 						woObject.task = $('#w-o-task').val().trim(); 
-						woObject.comment = 'initiate';
+						woObject.comment = ['initiate'];
 						woObject.key = woID;
 
 
