@@ -73,6 +73,7 @@ var leader = {
 						var task = $('#w-o-task').val().trim();
 						// create button for accordion
 						var wOrder = [];
+						
 
 						// unscore reference number
 						var ref = _.uniqueId(ref)
