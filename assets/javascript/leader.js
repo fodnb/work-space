@@ -15,6 +15,7 @@ var leader = {
 	username: '',
 	work: [],
 	initiate: 	function() {
+
 					leader.username = JSON.parse(localStorage.getItem('username'));
 					console.log(leader.username);
 					var updates = {};
@@ -60,6 +61,7 @@ var leader = {
 
 	createWO: 	function() {
 					$('#add-w-o').click(function() {
+
 						// create locations in the firebase for the list of work orders
 						var woID = leader.database.ref('work/').push().key;
 						
@@ -70,6 +72,7 @@ var leader = {
 						var task = $('#w-o-task').val().trim();
 						// create button for accordion
 						var wOrder = [];
+
 
 						var ref = _.uniqueId(ref)
 						leader.database.ref("/lastReference").set(ref);
@@ -111,13 +114,12 @@ var leader = {
 						woObject.issuer = $('#issuer').val().trim();
 						woObject.assign = $('#assigned').val().trim();
 						woObject.date = $('#date').val().trim();
-						woObject.ref = ref
+
+						woObject.ref = ref;
 						woObject.task = $('#w-o-task').val().trim();
 						woObject.key = woID;
 
-						// create the assignment locations for each team member
-						var assnID = leader.database.ref('users/' + woObject.assign + '/assignments').push().key;
-						
+
 						// console.log(woObject);
 						// console.log(woID);
 						// console.log(assnID);
@@ -125,7 +127,7 @@ var leader = {
 						// update locations in fire base
 						var updates = {};
 						updates['work/' + woID] = woObject;
-						updates['users/' + woObject.assign + '/assignments' + assnID] = {key: woID};
+					
 						leader.database.ref().update(updates);
 
 						// clear fields
@@ -150,31 +152,36 @@ var leader = {
 							var task = child.val().task;
 							var key = child.val().key;
 							// create button for accordion
-							var newBtn = $('<button data-toggle="collapse" class="accordion">' + 
-									ref + '</button>');
+
+							var newBtn = $('<div id="w-o-button" data-toggle="collapse" class="panel panel-default">' + 
+									ref + '</div>');
+
 							// assign href
 							newBtn.attr('href', '#' + ref);
 							// append button
 							$('#w-o-list').append(newBtn);
 							// create accordion panel
-							var newDiv = $('<div class="panel-collapse collapse">');
+
+							var newDiv = $('<div class="panel-collapse collapse">'); // class = "panel panel-default"
+
 							// assign id for href above
 							newDiv.attr('id', ref);
 							// firebase key value for reference
 							newDiv.attr('key', key);
 							// create table of information for work order
-							var newTable = $('<table>');
-							var newThead = $('<thead>');
+
+							var newTable = $('<table class="table">'); // class = "table"
+							var newThead = $('<thead class="threadHover">');
 							var newTbody = $('<tbody>');
-							var newData = $('<tr><th><h3>Issuer: ' + issuer + '</h3></th></tr>');
+							var newData = $('<tr><th><p id="titleHeader">Issuer: </p><p id="script"> ' + issuer + '</p></th></tr>');
 							newThead.append(newData);
-							var newData = $('<tr><th><h3>Assigned: ' + assigned + '</h3></th></tr>');
+							var newData = $('<tr><th><p id="title">Assigned: </p><p id="script"> ' + assigned + '</p></th></tr>');
 							newThead.append(newData);
-							var newData = $('<tr><th><h3>Date: ' + date + '</h3></th></tr>');
+							var newData = $('<tr><th><p id="title">Date: </p><p id="script"> ' + date + '</p></th></tr>');
 							newThead.append(newData);
-							var newData = $('<tr><th><h3>Reference: ' + ref + '</h3></th></tr>');
+							var newData = $('<tr><th><p id="title">Reference: </p><p id="script"> ' + ref + '</p></th></tr>');
 							newThead.append(newData);
-							var newData = $('<tr><td><h3>Task: ' + task + '</h3></td></tr>');
+							var newData = $('<tr><td><p id="title">Task: </p><p id="script"> ' + task + '</p></td></tr>');
 							newTbody.append(newData);
 							// assemble table
 							newTable.append(newThead);

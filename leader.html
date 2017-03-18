@@ -28,7 +28,9 @@
 		<div class="container-fluid">
 			<div class="row text-center">
 						<br></br>
-	        	<div id="logo">Work Space</div>
+
+	        	<div id="logo" style="margin-bottom:10px"><img src="assets/images/gears2.gif" style="height:50px;width:50px;"> Work Space</div>
+
 			</div>
 		</div>
 	</nav>
@@ -43,19 +45,24 @@
 
 		<div class='tab-content'>
 		<!-- html options go here -->
+
 			<div id='w-o-list' class='tab-pane fade active'>
 			<!-- master list displayed here -->
+
 			</div>
 			<div id='new-w-o' class='tab-pane fade'>
 			<!-- work order form here -->
 
-					<!-- <div class="col-sm-6"> -->
 
-						<!-- <div id="new-w/o-form" class='tab-pane fade'> -->
+					<div class="col-sm-1"></div>
+
+					<div id="w-o-form-container" class="col-sm-10">
+
 							<!--this begins the header fields for a work order  -->
 							<div id='custom-fields'>
 								<h3>Issuer:</h3>
 								<input class="userInput" id="issuer"/>
+
 								<h3>Assigned:</h3>
 								<input class='userInput' id='assigned'/>
 								<h3>Date:</h3>
@@ -69,14 +76,16 @@
 
 							<!-- this ends the header fields for the work order -->
 							<h3>Task Description:</h3>
-							<input class="userInput" id="w-o-task"> 
-							<br></br>
-							<button class="btn btn-default" id="add-w-o">Create W/O</button>
-						<!-- </div> -->
-					<!-- </div> -->
-				<!-- <div class="col-sm-6"> -->
 
-				<!-- </div>  -->
+							<input class="userInput" id="w-o-task" style="height:100px;width:450px"> 
+							<br></br>
+							<button class="addButton" id="add-w-o">Submit Order</button>
+
+					</div>
+
+					<div class="col-sm-1"></div>
+
+
 			</div> <!-- end of new-w/o -->
 			<div id='team-list' class='tab-pane fade'>
 			<!-- team view here -->
@@ -86,48 +95,20 @@
 		</div>
 	</div>
 
-	<!-- the following is a example idea -->
-	<!-- <div class="row text-center">
-	    <div class="col-sm-2"></div>
-	    <div class="col-sm-8">
-			<div class="panel-group" id="accordion">
-			  	<div class="panel panel-default"> 
-			    	<div id="topPanel" class="panel-heading">
-			      		<h4 class="panel-title">
-			        	<a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><strong>Work Order #1</strong></a>
-			      		</h4>
-			    	</div>
-			    	<div id="collapse1" class="panel-collapse collapse">
-			     		 <div class="panel-body">
-			      	
-			   				<div class="container">
-					  			<h3 class="orderHeader" style="float: left">"Automobile Needs Repair"</h3>
-					  			<br></br>
-					  			<br></br>
-					  			<table class="table table-hover" style="width:800px; float: left">
-					    			<thead>
-					      				<tr>
-					        				<th>Task</th>
-					      				</tr>
-					    			</thead>
-					    			<tbody>
-					      				<tr>
-					        				<td id="descriptionDisplay"><strong>Description:</strong> After changing their name from the New Yardbirds, Led Zeppelin signed a deal with Atlantic Records that afforded them considerable artistic freedom. Although the group was initially unpopular with critics, they achieved significant commercial success with albums such as Led Zeppelin</td>
-					      				</tr>
-					      				<tr>
-					        				<td><strong>Customer Information:</strong> Jane Doe, Age 43; Location: Basking Ridge NJ, 07920 87 Vanderveer Drive</td>
-					      				</tr>
-					    			</tbody>
-					  			</table>
-							</div>
-			      		</div>
-			    	</div>
-			  	</div>
-			</div> 
-		</div>
-		<div class='col-sm-2'></div>
-	</div>
- -->
+
+			<!-- Create New Field Script  -->	
+	<script>
+
+	$(".addField").on("click", function() {
+
+		var newFieldHeader = $("#newFieldInput").val().trim();
+
+		//var fieldNum = 0;
+
+		$("#newFieldDisplay").append("<div id='newField'>"+newFieldHeader+"<br id='newFieldBreak'><input class='userInput' id='additionalFieldInput'>"+"</div>");
+
+	});
+	</script>
  	<!-- link to assets javascript for this page -->
 	<script src="assets/javascript/leader.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
