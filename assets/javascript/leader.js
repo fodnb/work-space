@@ -15,7 +15,7 @@ var leader = {
 	username: '',
 	work: [],
 	initiate: 	function() {
-					
+
 					leader.username = JSON.parse(localStorage.getItem('username'));
 					console.log(leader.username);
 					var updates = {};
@@ -27,7 +27,20 @@ var leader = {
 					leader.createWO();
 					leader.displayWO();
 					leader.teamList();
+					leader.newNumber();
 	},//end initiate
+
+	newNumber: function() {
+					leader.database.ref("lastReference").once("value", function(snap) {
+						var howMany = snap.val().split(/\D/)
+						howMany = howMany[howMany.length - 1]
+						console.log(howMany)
+						howMany = parseInt(howMany)
+						for (count = 0; count < howMany; count++) {
+							_.uniqueId()
+						};
+					});
+	},
 
 	onDisconnect: function () {
 					leader.username = JSON.parse(localStorage.getItem('username'));
@@ -60,6 +73,9 @@ var leader = {
 						// create button for accordion
 						var wOrder = [];
 
+
+						var ref = _.uniqueId(ref)
+						leader.database.ref("/lastReference").set(ref);
 
 						var newBtn = $('<button data-toggle="collapse" class="accordion">' + 
 									ref + '</button>');
@@ -98,13 +114,12 @@ var leader = {
 						woObject.issuer = $('#issuer').val().trim();
 						woObject.assign = $('#assigned').val().trim();
 						woObject.date = $('#date').val().trim();
-						woObject.ref = $('#ref').val().trim();
+
+						woObject.ref = ref;
 						woObject.task = $('#w-o-task').val().trim();
 						woObject.key = woID;
 
-						// create the assignment locations for each team member
-						var assnID = leader.database.ref('users/' + woObject.assign + '/assignments').push().key;
-						
+
 						// console.log(woObject);
 						// console.log(woID);
 						// console.log(assnID);
@@ -112,7 +127,7 @@ var leader = {
 						// update locations in fire base
 						var updates = {};
 						updates['work/' + woID] = woObject;
-						updates['users/' + woObject.assign + '/assignments' + assnID] = {key: woID};
+					
 						leader.database.ref().update(updates);
 
 						// clear fields
@@ -131,25 +146,30 @@ var leader = {
 							//console.log(child.val());
 						
 							var issuer = child.val().issuer;
-							var assigned = child.val().assigned;
+							var assigned = child.val().assign;
 							var date = child.val().date;
 							var ref = child.val().ref;
 							var task = child.val().task;
 							var key = child.val().key;
 							// create button for accordion
+
 							var newBtn = $('<div id="w-o-button" data-toggle="collapse" class="panel panel-default">' + 
 									ref + '</div>');
+
 							// assign href
 							newBtn.attr('href', '#' + ref);
 							// append button
 							$('#w-o-list').append(newBtn);
 							// create accordion panel
+
 							var newDiv = $('<div class="panel-collapse collapse">'); // class = "panel panel-default"
+
 							// assign id for href above
 							newDiv.attr('id', ref);
 							// firebase key value for reference
 							newDiv.attr('key', key);
 							// create table of information for work order
+
 							var newTable = $('<table class="table">'); // class = "table"
 							var newThead = $('<thead class="threadHover">');
 							var newTbody = $('<tbody>');
@@ -164,8 +184,6 @@ var leader = {
 							var newData = $('<tr><td><p id="title">Task: </p><p id="script"> ' + task + '</p></td></tr>');
 							newTbody.append(newData);
 							// assemble table
-
-							
 							newTable.append(newThead);
 							newTable.append(newTbody);
 							newDiv.append(newTable);
