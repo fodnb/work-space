@@ -72,7 +72,7 @@ var team = {
                     newDiv.append(
                         '<ul class="list-group">'
 
-                        + '<li class="list-group-item">' + childData.key + '</li>' + '<li class="list-group-item">' + childData.date + '</li>' + '<li class="list-group-item" id="workOrder">' + childData.task + '</li>'
+                        + '<li class="list-group-item">' + "WORK ORDER #: " + childData.ref + '</li>' + '<li class="list-group-item">' + childData.date + '</li>' + '<li class="list-group-item" id="workOrder">' + childData.task + '</li>'
 
                         + '<label for="comment" id="newComment">COMMENT<br> </label>' + '<input class="form-control" id="' + childData.ref + '"  type="text">' + '</ul>');
                     newDiv.append(newButComplete);
