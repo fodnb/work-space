@@ -1,3 +1,14 @@
+<<<<<<< HEAD
+    var config = {
+        apiKey: "AIzaSyAKu1os4pi3oY7ThPvVeNefdWdXHRldy9Y",
+        authDomain: "work-space-161100.firebaseapp.com",
+        databaseURL: "https://work-space-161100.firebaseio.com",
+        storageBucket: "work-space-161100.appspot.com",
+        messagingSenderId: "904019024650"
+    };
+
+    firebase.initializeApp(config);
+=======
 var config = {
     apiKey: "AIzaSyAKu1os4pi3oY7ThPvVeNefdWdXHRldy9Y",
     authDomain: "work-space-161100.firebaseapp.com",
@@ -10,12 +21,119 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
+>>>>>>> 89a0937a2c7e1fc42c25b89b043a88d96d36ccbc
 var team = {
+<<<<<<< HEAD
+<<<<<<< HEAD
+    database: firebase.database(),
+    username: '',
+    work: [],
+    initiate:   function() {
+                    
+                    team.username = JSON.parse(localStorage.getItem('username'));
+                    // console.log(team.username);
+                    var updates = {};
+                    updates['users/' + team.username + '/status'] = 'online';
+                    team.database.ref().update(updates);
+                    team.database.ref('users/'+ team.username).once('value', function(snap){
+                        // console.log(snap.val());
+
+                    });
+
+<<<<<<< HEAD
+                    team.displayWO();
+    },
+    displayWO:  function() {
+
+                    team.database.ref('users/' + team.username + '/assignments').on('value', function(snap){
+                        
+                        // console.log(snap.val());
+                        
+                        // $('#w-o-issued').empty();
+                        snap.forEach(function(child){
+                            // console.log(child.val().key);
+                            team.work.push(child.val().key);
+
+                        });// end of forEach
+                        console.log(team.work);
+                        for (var i =0; i < team.work.length; i++){
+                            team.database.ref('work/' + team.work[i]).once('value', function(snap){
+                                var issuer = snap.val().issuer;
+                                var assigned = snap.val().assigned;
+                                var date = snap.val().date;
+                                var ref = snap.val().ref;
+                                var task = snap.val().task;
+                                var key = snap.val().key;
+                                // create button for accordion
+                                var newBtn = $('<button data-toggle="collapse" class="accordion">' + 
+                                                ref + '</button>');
+                                // assign href
+                                newBtn.attr('href', '#' + ref);
+                                // append button
+                                $('#w-o-list').append(newBtn);
+                                // create accordion panel
+                                var newDiv = $('<div class="panel-collapse collapse">');
+                                // assign id for href above
+                                newDiv.attr('id', ref);
+                                // firebase key value for reference
+                                newDiv.attr('key', key);
+                                // create table of information for work order
+                                var newTable = $('<table>');
+                                var newThead = $('<thead>');
+                                var newTbody = $('<tbody>');
+                                var newData = $('<tr><th><h3>Issuer: ' + issuer + '</h3></th></tr>');
+                                newThead.append(newData);
+                                var newData = $('<tr><th><h3>Assigned: ' + assigned + '</h3></th></tr>');
+                                newThead.append(newData);
+                                var newData = $('<tr><th><h3>Date: ' + date + '</h3></th></tr>');
+                                newThead.append(newData);
+                                var newData = $('<tr><th><h3>Reference: ' + ref + '</h3></th></tr>');
+                                newThead.append(newData);
+                                var newData = $('<tr><td><h3>Task: ' + task + '</h3></td></tr>');
+                                newTbody.append(newData);
+                                // assemble table
+                                newTable.append(newThead);
+                                newTable.append(newTbody);
+                                newDiv.append(newTable);
+                                // append panel 
+                                $('#w-o-issued').append(newDiv);
+                            });// end of on work
+                        }; // end for loop
+                    });// end of on assignments
+=======
+                    //team.createWO(); !uncomment when we make this!!!!!
+                    // team.test();
+>>>>>>> 89a0937a2c7e1fc42c25b89b043a88d96d36ccbc
+    },
+    onDisconnect: function () {
+                    team.username = JSON.parse(localStorage.getItem('username'));
+                    team.database.ref('users/'+ team.username + "/status").onDisconnect().set("offline");
+    },//end onDisconnect
+};// end of team object
+=======
+database: firebase.database(),
+username: '',
+work: [],
+initiate: function() {
+
+    team.username = JSON.parse(localStorage.getItem('username'));
+    console.log(team.username);
+    var updates = {};
+    updates['users/' + team.username + '/status'] = 'online';
+    team.database.ref().update(updates);
+    team.database.ref('users/' + team.username).once('value', function(snap) {
+        console.log(snap.val());
+        team.addWorkOrders();
+        team.onDisconnect();
+    });
+>>>>>>> 7be900bcf5774a086d1a6de5d052ae7861169df3
+=======
     database: firebase.database(),
     username: '',
     work: [],
 
     initiate: function() {
+>>>>>>> dc1baae9282a0e98086b54cb5585e090918461fb
 
         team.username = JSON.parse(localStorage.getItem('username'));
         console.log(team.username);
@@ -271,3 +389,29 @@ $("<a>").on("click", function(event) {
     $("<a>").attr("target", $("#srchDisplay"));
 
 })
+<<<<<<< HEAD
+
+
+
+
+
+
+
+
+<<<<<<< HEAD
+})
+=======
+
+
+
+
+
+
+//Ben's suggestion
+// var query = new Object();
+// var url = [endpointURL?];
+// query.key = value;  adds to the object query
+// url += $.param(query);  passes the object to the param function that builds the query url titled url
+>>>>>>> 7be900bcf5774a086d1a6de5d052ae7861169df3
+=======
+>>>>>>> dc1baae9282a0e98086b54cb5585e090918461fb

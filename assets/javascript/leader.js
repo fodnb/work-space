@@ -24,6 +24,7 @@ var leader = {
 					leader.database.ref('users/'+ leader.username).once('value', function(snap){
 						//console.log(snap.val());
 					});
+					leader.onDisconnect();
 					leader.createWO();
 					leader.displayWO();
 					leader.teamList();
@@ -61,7 +62,7 @@ var leader = {
 
 	createWO: 	function() {
 					$('#add-w-o').click(function() {
-
+						// add conditional logic here
 						// create locations in the firebase for the list of work orders
 						var woID = leader.database.ref('work/').push().key;
 						
@@ -117,9 +118,14 @@ var leader = {
 
 						woObject.ref = ref;
 						woObject.task = $('#w-o-task').val().trim();
+						woObject.comment = ['initiate'];
 						woObject.key = woID;
+<<<<<<< HEAD
+						
+=======
 
 
+>>>>>>> dc1baae9282a0e98086b54cb5585e090918461fb
 						// console.log(woObject);
 						// console.log(woID);
 						// console.log(assnID);
@@ -127,7 +133,10 @@ var leader = {
 						// update locations in fire base
 						var updates = {};
 						updates['work/' + woID] = woObject;
+<<<<<<< HEAD
+=======
 					
+>>>>>>> dc1baae9282a0e98086b54cb5585e090918461fb
 						leader.database.ref().update(updates);
 
 						// clear fields
@@ -195,7 +204,4 @@ var leader = {
 
 	
 };//end leader object
-$('document').ready(function() {
-	leader.initiate();
-	leader.onDisconnect();
-});	
+$('document').ready(leader.initiate);
