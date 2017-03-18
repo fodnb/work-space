@@ -28,9 +28,7 @@
 		<div class="container-fluid">
 			<div class="row text-center">
 						<br></br>
-
 	        	<div id="logo" style="margin-bottom:10px"><img src="assets/images/gears2.gif" style="height:50px;width:50px;"> Work Space</div>
-
 			</div>
 		</div>
 	</nav>
@@ -47,27 +45,31 @@
 		<!-- html options go here -->
 
 			<div id='w-o-list' class='tab-pane fade active'>
+
 			<!-- master list displayed here -->
+
+
+
+				
 
 			</div>
 			<div id='new-w-o' class='tab-pane fade'>
 			<!-- work order form here -->
 
-
 					<div class="col-sm-1"></div>
 
 					<div id="w-o-form-container" class="col-sm-10">
 
+						<!-- <div id="new-w/o-form" class='tab-pane fade'> -->
 							<!--this begins the header fields for a work order  -->
 							<div id='custom-fields'>
 								<h3>Issuer:</h3>
 								<input class="userInput" id="issuer"/>
-
-								<h3>Assigned:</h3>
+								<h3>Assigned</h3>
 								<input class='userInput' id='assigned'/>
 								<h3>Date:</h3>
 								<input class="userInput" id="date"/>
-								<h3>Reference <br>(Number Prefix):</h3>
+								<h3>Reference Number:</h3>
 								<input class="userInput" id="ref"/> 
 							</div>
 							
@@ -76,7 +78,6 @@
 
 							<!-- this ends the header fields for the work order -->
 							<h3>Task Description:</h3>
-
 							<input class="userInput" id="w-o-task" style="height:100px;width:450px"> 
 							<br></br>
 							<button class="addButton" id="add-w-o">Submit Order</button>
@@ -84,7 +85,6 @@
 					</div>
 
 					<div class="col-sm-1"></div>
-
 
 			</div> <!-- end of new-w/o -->
 			<div id='team-list' class='tab-pane fade'>
@@ -98,17 +98,14 @@
 
 			<!-- Create New Field Script  -->	
 	<script>
-
 	$(".addField").on("click", function() {
-
 		var newFieldHeader = $("#newFieldInput").val().trim();
-
 		//var fieldNum = 0;
-
 		$("#newFieldDisplay").append("<div id='newField'>"+newFieldHeader+"<br id='newFieldBreak'><input class='userInput' id='additionalFieldInput'>"+"</div>");
-
 	});
 	</script>
+
+
  	<!-- link to assets javascript for this page -->
 	<script src="assets/javascript/leader.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
