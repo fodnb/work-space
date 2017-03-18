@@ -53,7 +53,8 @@ var leader = {
 						snap.forEach(function (childSnap) {
 							if (childSnap.child("status").val() === "online" &&
 								childSnap.child("role").val() === "team") {
-								$("#team-list").append("<p>" + childSnap.child("name").val() + "</p>")
+								$("#team-list").append("<p>" + childSnap.child("name").val() +" Username: " +
+								childSnap.child("username") + "</p>")
 							}
 						});
 					});
