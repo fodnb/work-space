@@ -16,7 +16,7 @@ var leader = {
 	initiate: 	function() {
 
 					leader.username = JSON.parse(localStorage.getItem('username'));
-					console.log(leader.username);
+					// console.log(leader.username);
 					var updates = {};
 					updates['users/' + leader.username + '/status'] = 'online';
 					leader.database.ref().update(updates);
@@ -30,10 +30,11 @@ var leader = {
 	},//end initiate
 
 	newNumber: function() {
+					// creates a uniqueId using underscore.js
 					leader.database.ref("lastReference").once("value", function(snap) {
 						var howMany = snap.val().split(/\D/)
 						howMany = howMany[howMany.length - 1]
-						console.log(howMany)
+						// console.log(howMany)
 						howMany = parseInt(howMany)
 						for (count = 0; count < howMany; count++) {
 							_.uniqueId()
@@ -72,7 +73,7 @@ var leader = {
 						// create button for accordion
 						var wOrder = [];
 
-
+						// unscore reference number
 						var ref = _.uniqueId(ref)
 						leader.database.ref("/lastReference").set(ref);
 
@@ -86,29 +87,7 @@ var leader = {
 						var newDiv = $('<div class="panel-collapse collapse">');
 						// assign id for href above
 						newDiv.attr('id', ref);
-						// // create table of information for work order
-						// var newTable = $('<table>');
-						// var newThead = $('<thead>');
-						// var newTbody = $('<tbody>');
-						// var newData = $('<tr><th><h3>Issuer: ' + issuer + '</h3></th></tr>');
-						// newThead.append(newData);
-						// var newData = $('<tr><th><h3>Date: ' + date + '</h3></th></tr>');
-						// newThead.append(newData);
-						// var newData = $('<tr><th><h3>Reference: ' + ref + '</h3></th></tr>');
-						// newThead.append(newData);
-						// var newData = $('<tr><td><h3>Task: ' + task + '</h3></td></tr>');
-						// newTbody.append(newData);
-						// // assemble table
-						// newTable.append(newThead);
-						// newTable.append(newTbody);
-						// newDiv.append(newTable);
-						// console.log(issuer);
-						// console.log(date);
-						// console.log(ref);
-						// console.log(task);
-						// append panel 
-						// $('#w-o-list').append(newDiv);
-            
+            			// create object for storage
 						var woObject = new Object();
 						woObject.issuer = $('#issuer').val().trim();
 						woObject.assign = $('#assigned').val().trim();
@@ -134,7 +113,7 @@ var leader = {
 						$('#issuer').val('');
 						$('#assigned').val('');
 						$('#date').val('');
-						$('#ref').val('');
+						// $('#ref').val('');
 						$('#w-o-task').val('');
 					});
 	},// end createWO
