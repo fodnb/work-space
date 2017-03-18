@@ -11,113 +11,175 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 var team = {
-database: firebase.database(),
-username: '',
-work: [],
-initiate: function() {
+    database: firebase.database(),
+    username: '',
+    work: [],
 
-    team.username = JSON.parse(localStorage.getItem('username'));
-    console.log(team.username);
-    var updates = {};
-    updates['users/' + team.username + '/status'] = 'online';
-    team.database.ref().update(updates);
-    team.database.ref('users/' + team.username).once('value', function(snap) {
-        console.log(snap.val());
-        team.addWorkOrders();
-        team.onDisconnect();
-    });
+    initiate: function() {
 
-    //team.createWO(); !uncomment when we make this!!!!!
-    // team.test();
-},
-onDisconnect: function() {
-    team.username = JSON.parse(localStorage.getItem('username'));
-    team.database.ref('users/' + team.username + "/status").onDisconnect().set("offline");
-}, //end onDisconnect
+        team.username = JSON.parse(localStorage.getItem('username'));
+        console.log(team.username);
+        var updates = {};
+        updates['users/' + team.username + '/status'] = 'online';
+        team.database.ref().update(updates);
+        // team.database.ref("work/").on("value", function(snap){
+        //     snap.forEach(function(childsnap){
+        //         console.log(childsnap.val());
+        //     })
+        // });
+        team.database.ref('users/' + team.username).once('value', function(snap) {
+            console.log(snap.val());
+            team.addWorkOrders();
+            team.onDisconnect();
+        });
 
-
-addWorkOrders: function() {
-
-            team.database.ref().
-            // team.initiate();
-            // adding work-space firebase     
-            var workRef = database.ref('work');
-
-            workRef.on("value", function(snapshot) {
-
-                snapshot.forEach(function(childsnapshot) {
-                    var childData = childsnapshot.val();
-
-                    console.log(team.username);
-                    if (team.username === childData.assign) {
+        //team.createWO(); !uncomment when we make this!!!!!
+        // team.test();
+    },
+    onDisconnect: function() {
+        team.username = JSON.parse(localStorage.getItem('username'));
+        team.database.ref('users/' + team.username + "/status").onDisconnect().set("offline");
+    }, //end onDisconnect
 
 
-                        newDiv = $("<div>");
-                        newButComplete = $("<button>");
-                        newButComplete.attr("class", "commit");
-                        newButComplete.val(childData.ref);
-                        // newPonButton = $("<p>");
-                        newButComplete.html("ADD COMMENT");
+    addWorkOrders: function() {
 
-                        newDiv.append(
-                            '<ul class="list-group">'
+        // team.database.ref().
+        // team.initiate();
+        // adding work-space firebase     
+        var workRef = database.ref('work');
 
-                            + '<li class="list-group-item">' + childData.key + '</li>' + '<li class="list-group-item">' + childData.date + '</li>' + '<li class="list-group-item" id="workOrder">' + childData.task + '</li>'
+        workRef.on("value", function(snapshot) {
+             $("#w-o-issued").empty(); // this may need to be moved
 
-                            + '<label for="comment" id="newComment">COMMENT<br> </label>' + '<input class="form-control" id="'+childData.ref+'"  type="text">' + '</ul>');
-                        newDiv.append(newButComplete);
+            snapshot.forEach(function(childsnapshot) {
+                var childData = childsnapshot.val();
 
-                        $("#comment").val(childData.ref);
+                console.log(team.username);
+                if (team.username === childData.assign) {
+                    console.log(childData.comment);
+                    var comments = childData.comment;
+                    
+                    newDiv = $("<div>");
+                    newButComplete = $("<button>");
+                    newButComplete.attr("class", "commit");
+                    newButComplete.val(childData.ref);
+                    newButComplete.attr("key", childData.key);
+                    newButComplete.html("ADD COMMENT");
 
-                        $("#w-o-issued").append(newDiv);
-                        $("#workOrder").attr("id", "wO"+childData.ref);
+
+                
+                    newDiv.append(
+                        '<ul class="list-group">'
+
+                        + '<li class="list-group-item">' + childData.key + '</li>' + '<li class="list-group-item">' + childData.date + '</li>' + '<li class="list-group-item" id="workOrder">' + childData.task + '</li>'
+
+                        + '<label for="comment" id="newComment">COMMENT<br> </label>' + '<input class="form-control" id="' + childData.ref + '"  type="text">' + '</ul>');
+                    newDiv.append(newButComplete);
 
 
 
-                        $(".commit").on("click", function() {
 
-                            // event.preventDefault();
-                            var butValue = $(this).val();
-                            comment = $("#"+butValue).val();
-                            var newLine = $("<div class='form-control'>");
-                            newLine.html(comment);
 
-                            if(comment.length > 0){
-                            $("#wO"+butValue).append(newLine);
+                    // $("#comment").val(childData.ref);
+
+                    $("#w-o-issued").append(newDiv);
+                    $("#workOrder").attr("id", "wO" + childData.ref);
+
+                           for(var i = 1; i < comments.length; i++){
+                        // newC = $("<div>");  
+                        // newC = $("<div class='form-control'>");
+                        newC = $("<li>");
+                         // newComment.text(comments[i]);
+                         newC.html("COMMENT#"+[i] + ":" + " " + comments[i]);
+                         $('#wO' + childData.ref).append(newC);
+                         console.log(childData.ref);
+
+                    }
+
+
+                 
+
+
+                    $(".commit").on("click", function() {
+
+                        // event.preventDefault();
+                        var butValue = $(this).val();
+                        var comment = $("#" + butValue).val();
+                        comment = comment.toUpperCase();
+                        var newLine = $("<div class='form-control'>");
+                        newLine.html(comment);
+                        var keyValue = $(this).attr("key");
+                        console.log(keyValue);
+
+                        if (comment.length > 0) {
+                            $("#wO" + butValue).append(newLine);
+                            // team.database.ref("work/" + keyValue).once("value", function(snap) {
+                            //     console.log(snap.val());
+                            //     var butObject = new Object();
+                            //     butObject.issuer = snap.val().issuer;
+                            //     butObject.assign = snap.val().assign;
+                            //     butObject.date = snap.val().date;
+                            //     butObject.ref = snap.val().ref;
+                            //     butObject.task = snap.val().task;
+                            //     butObject.comment = snap.val().comment;
+                            //     butObject.key = snap.val().key;
+                            //     butObject.comment.push(comment);
+                            //     console.log(butObject);
+                            //     var updates = {};
+                            //     updates['work/'+ butObject.key] = butObject;
+                            //     team.database.ref().update(updates);
+                            }
+
+                               team.database.ref("work/" + keyValue).once("value", function(snap) {
+                                console.log(snap.val());
+                                var butObject = new Object();
+                                butObject.issuer = snap.val().issuer;
+                                butObject.assign = snap.val().assign;
+                                butObject.date = snap.val().date;
+                                butObject.ref = snap.val().ref;
+                                butObject.task = snap.val().task;
+                                butObject.comment = snap.val().comment;
+                                butObject.key = snap.val().key;
+                                butObject.comment.push(comment);
+                                console.log(butObject);
+                                var updates = {};
+                                updates['work/'+ butObject.key] = butObject;
+                                team.database.ref().update(updates);
+                            });
+
                             $("input").val("");
-                        }
-
-                        });
-
-                    };
 
 
-                });
+                  
 
-            }, function(errorObject) {
-                console.log("Errors handled: " + errorObject.code);
+                            //  need to reference object in database and add to it
+                            // team.database.ref().push({
+                            //    woObject.comment: comment 
+                            // });
+                            console.log(team.database.comment)
+                            console.log(childData.comment);
+
+                        
+
+                    });
+
+                };
+
+
             });
-        
+
+        }, function(errorObject) {
+            console.log("Errors handled: " + errorObject.code);
+        });
+
     }, //  end of work order function
 }; // end of team object
 
 
 
 
-  $(document).ready(team.initiate);
-
-
-
-
-
-
-
-
-
-
-
-
-
+$(document).ready(team.initiate);
 
 
 // initializing button for searching for srchYouTube
@@ -156,7 +218,7 @@ $("#srchYouTube").on("click", function(event) {
 
 
 
-
+// search stack exchange function
 $("#srchStack").on("click", function(event) {
     $("#srchDisplay").empty();
 
@@ -203,30 +265,9 @@ $("#srchStack").on("click", function(event) {
     $("#stack").val("");
 })
 
-
+// set attribute function
 $("<a>").on("click", function(event) {
 
     $("<a>").attr("target", $("#srchDisplay"));
 
-
-
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Ben's suggestion
-// var query = new Object();
-// var url = [endpointURL?];
-// query.key = value;  adds to the object query
-// url += $.param(query);  passes the object to the param function that builds the query url titled url
