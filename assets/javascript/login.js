@@ -21,26 +21,26 @@ var login = {
 						var password = $("#password").val().trim();
 						// calls the users object from the database
 						login.database.ref('users/'+ username +'/').once('value',function(snap){
-							console.log(snap.val().password);
-							console.log(password);
-							console.log(snap.val().role);
+							// console.log(snap.val().password);
+							// console.log(password);
+							// console.log(snap.val().role);
 							// if password is good
 							if(snap.val().password === password){
-								console.log('good');
+								// console.log('good');
 								//use local sorage to carry over the user value
 								localStorage.setItem('username', JSON.stringify(username));
 								// loads the html in the window
 								if (snap.val().role === 'leader'){
-									console.log('is leader');
+									// console.log('is leader');
 									window.location.href = 'leader.html';
 								}
 								if (snap.val().role === 'team'){
-									console.log('is team');
+									// console.log('is team');
 									window.location.href = 'team.html';
 								}
 							}
 							else {
-								// $("#alert").show();
+								$("#alert").show();
 							}
 						});// end of call users
 					});// end of click event
@@ -49,48 +49,3 @@ var login = {
 }; // end of login object
 $('document').ready(login.launch);
 
-// use below for reference validation needed above
-
-	// //function tells user if inputs are empty
-	// if 	((userPermission === undefined) || 
-	// 	(username === "") || (password === "")){
-	// 	$("#alert").show();
-	// }
-	// //function will send user to leader.html if their account info matches stored object
-	// else if (userPermission === "manager") {
-	// 	database.ref().once('value').then(function(snapshot) {
-	// 	 	snapshot.forEach(function(childSnapshot) {
-	// 	 		if ((username === childSnapshot.child("username").val()) && 
-	// 	 			(password === childSnapshot.child("password").val()) &&
-	// 	 			(userPermission === childSnapshot.child("userPermission").val()))
-	// 	 			{
-	// 	 			leader.teamLdr = username;		 				
-	// 	 			window.location.href = "leader.html";
-	// 	 			return true;
-	// 	 		}//end of if
-	// 	 		else {
-	// 	 			$("#alert").show();
-	// 	 		}//end of else	 		
-	// 	 	});//end of iterationfunction
-	// 	});// end of call function
-	// }// end of else if
-	// //function will send user to leader.html if their account info matches stored object
-	// else if (userPermission === "tech") {
-	// 	 database.ref().once('value').then(function(snapshot) {
-	// 	 	snapshot.forEach(function(childSnapshot) {
-	// 	 		if 	(username === childSnapshot.child("username").val()) &&
-	// 	 		 	(password === childSnapshot.child("password").val()) &&
-	// 	 		 	(userPermission === childSnapshot.child("userPermission").val())
-	// 	 		 	{
-		 		
-	// 	 			window.location.href = "team.html";
-	// 	 			return true
-	// 	 		}// end of nested if 
-	// 	 		else {
-	// 	 			$("#alert").show();
-	// 	 		}// end of else
-	// 	 	});// end of data iteration function
-	// 	});// end of database call function
-	// } // end of else if
-
-// });// end of click event
