@@ -69,7 +69,7 @@ var leader = {
 						// collect field inputs
 						var issuer = $('#issuer').val().trim();
 						var date = $('#date').val().trim();
-						var ref = $('#ref').val().trim();
+						// var ref = $('#ref').val().trim();
 						var task = $('#w-o-task').val().trim();
 						// create button for accordion
 						var wOrder = [];
